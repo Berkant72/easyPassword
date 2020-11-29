@@ -48,7 +48,7 @@ struct InfoView: View {
                     FormRowView(firstItem: "Developer", secondItem: "Berkant Dursun")
                     FormRowView(firstItem: "Designer", secondItem: "Selim Dursun")
                     FormRowView(firstItem: "Website", secondItem: "www.berkantdursun.de")
-                    FormRowView(firstItem: "Copyriht", secondItem: "© 2020 All rights reserved")
+                    FormRowView(firstItem: "Copyright", secondItem: "© 2020 All rights reserved")
                     FormRowView(firstItem: "Version", secondItem: "\(getVersion())(\(getBuild()))")
                 } //: SECTION
             } //: FORM
@@ -69,8 +69,6 @@ struct InfoView: View {
             .accentColor(.secondary)
             , alignment: .topTrailing
         )
-        .onAppear(perform: {
-        })
     }
 }
 
