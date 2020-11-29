@@ -14,57 +14,11 @@ struct ContentView: View {
     // MARK: - PROPERTIES
     
     @State private var sliderValue = 6.0
-    @State private var password: String = ""
     @State private var showingInfoView: Bool = false
-    @State private var isLetter: Bool = true
-    @State private var isNumber: Bool = true
-    @State private var isSpecial: Bool = true
-    @State private var characters: [String] = ["easyPassword+"]
-    
+    @StateObject var pwGenarator = PasswordGenerator()
     
     let pasteboard = UIPasteboard.general
-    let allCharacters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9","@","!","§","$","%","&","/","(",")","?"]
-    
-    let letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-    let numbers = ["0","1","2","3","4","5","6","7","8","9"]
-    let specials = ["@","!","§","$","%","&","/","(",")","?"]
-    
-    
-    
-    func generatePassword(_ from: [String], with length: Int) {
-        characters = [""]
-        
-        switch true {
-        case isLetter && isNumber && isSpecial:
-            print("isletter and isNumber and isSpecial")
-            characters = letters + numbers + specials
-        case isLetter && isNumber:
-            print("isLetter and isNumber")
-            characters = letters + numbers
-        case isNumber && isSpecial:
-            print("isNumber and isSpecial")
-            characters = numbers + specials
-        case isLetter && isSpecial:
-            print("isLetter an isSpecial")
-            characters = letters + specials
-        case isLetter:
-            print("isLetter")
-            characters.append(contentsOf: letters)
-        case isNumber:
-            print("isNumber")
-            characters.append(contentsOf: numbers)
-        case isSpecial:
-            print("isSpecial")
-            characters.append(contentsOf: specials)
-        default:
-            characters = [""]
-        }
-        
-        for _ in 0..<length {
-            password.append(characters.randomElement()!)
-        }
-        //        return password
-    }
+
     
     // MARK: - BODY
     
@@ -86,7 +40,7 @@ struct ContentView: View {
                     // MARK: - NEW PASSWORD
                     
                     
-                    Text("\(password)")
+                    Text("\(pwGenarator.password)")
                         .padding(.vertical, 8)
                         .padding(.horizontal, 8)
                         .background(Color.gray.opacity(0.2))
@@ -100,8 +54,8 @@ struct ContentView: View {
                     Slider(value: $sliderValue, in: 1.0 ... 25.0, step: 1, onEditingChanged: { ( value ) in
                         // code
                         if value == false {
-                            password = ""
-                            generatePassword(characters, with: Int(sliderValue))
+                            pwGenarator.password = ""
+                            pwGenarator.generatePassword(pwGenarator.characters, with: Int(sliderValue))
                         }
                     }, minimumValueLabel: Text("1"), maximumValueLabel: Text("25"), label: {
                         Text("My Slider")
@@ -112,7 +66,7 @@ struct ContentView: View {
                     
                     Button(action: {
                         
-                        pasteboard.string = password
+                        pasteboard.string = pwGenarator.password
                         //                    UIPasteboard.general.setValue("\(String(describing: password))",
                         //                                                  forPasteboardType: kUTTypePlainText as String)
                         
@@ -129,9 +83,9 @@ struct ContentView: View {
                     // MARK: - TOGGLE CHARACTERS
                     
                     GroupBox {
-                        SelectionRowView(checkedList: $isLetter, title: "Buchstaben")
-                        SelectionRowView(checkedList: $isNumber, title: "Zahlen")
-                        SelectionRowView(checkedList: $isSpecial, title: "Sonderzeichen")
+                        SelectionRowView(checkedList: $pwGenarator.isLetter, title: "Buchstaben")
+                        SelectionRowView(checkedList: $pwGenarator.isNumber, title: "Zahlen")
+                        SelectionRowView(checkedList: $pwGenarator.isSpecial, title: "Sonderzeichen")
                     }
                 } //: VSTACK
                 .padding(.bottom, 30)
@@ -154,7 +108,7 @@ struct ContentView: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
                             
-            generatePassword(characters, with: Int(sliderValue))
+            pwGenarator.generatePassword(pwGenarator.characters, with: Int(sliderValue))
             //            password = "easyPassword+"
         })
         .sheet(isPresented: $showingInfoView) {
@@ -168,11 +122,13 @@ struct ContentView: View {
 // MARK: - PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
+    
+    
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.light)
         ContentView()
             .preferredColorScheme(.dark)
-        
+//
     }
 }

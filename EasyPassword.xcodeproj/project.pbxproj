@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E88EA46257445220089E208 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88EA45257445220089E208 /* PasswordGenerator.swift */; };
 		1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */; };
 		1ED06B7B256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */; };
 		1ED06B7C256AF4DA00B85C3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B68256AF4D900B85C3F /* ContentView.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E88EA45257445220089E208 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyPasswordApp.swift; sourceTree = "<group>"; };
 		1ED06B68256AF4D900B85C3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1ED06B69256AF4DA00B85C3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E88EA44257444FE0089E208 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1E88EA45257445220089E208 /* PasswordGenerator.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		1ED06B61256AF4D800B85C3F = {
 			isa = PBXGroup;
 			children = (
@@ -69,7 +79,9 @@
 		1ED06B66256AF4D900B85C3F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1ED06B68256AF4D900B85C3F /* ContentView.swift */,
 				1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */,
+				1E88EA44257444FE0089E208 /* Model */,
 				1ED06BAA2574384C00B85C3F /* View */,
 				1ED06B69256AF4DA00B85C3F /* Assets.xcassets */,
 			);
@@ -105,7 +117,6 @@
 		1ED06BAA2574384C00B85C3F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1ED06B68256AF4D900B85C3F /* ContentView.swift */,
 				1ED06B8A256B119E00B85C3F /* LaunchView.swift */,
 				1ED06B952572559700B85C3F /* HeaderView.swift */,
 				1ED06BA52574374900B85C3F /* SelectionRowView.swift */,
@@ -216,6 +227,7 @@
 				1ED06B8B256B119E00B85C3F /* LaunchView.swift in Sources */,
 				1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,
 				1ED06B9D25725D7C00B85C3F /* InfoView.swift in Sources */,
+				1E88EA46257445220089E208 /* PasswordGenerator.swift in Sources */,
 				1ED06B962572559700B85C3F /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
