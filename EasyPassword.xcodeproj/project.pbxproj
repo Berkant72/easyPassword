@@ -19,6 +19,8 @@
 		1ED06B972572559700B85C3F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B952572559700B85C3F /* HeaderView.swift */; };
 		1ED06B9D25725D7C00B85C3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B9C25725D7B00B85C3F /* InfoView.swift */; };
 		1ED06B9E25725D7C00B85C3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B9C25725D7B00B85C3F /* InfoView.swift */; };
+		1ED06BA62574374900B85C3F /* SelectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06BA52574374900B85C3F /* SelectionRowView.swift */; };
+		1ED06BA72574374900B85C3F /* SelectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06BA52574374900B85C3F /* SelectionRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,7 @@
 		1ED06B8A256B119E00B85C3F /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		1ED06B952572559700B85C3F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		1ED06B9C25725D7B00B85C3F /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		1ED06BA52574374900B85C3F /* SelectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,10 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */,
-				1ED06B68256AF4D900B85C3F /* ContentView.swift */,
-				1ED06B8A256B119E00B85C3F /* LaunchView.swift */,
-				1ED06B952572559700B85C3F /* HeaderView.swift */,
-				1ED06B9C25725D7B00B85C3F /* InfoView.swift */,
+				1ED06BAA2574384C00B85C3F /* View */,
 				1ED06B69256AF4DA00B85C3F /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -100,6 +100,18 @@
 				1ED06B79256AF4DA00B85C3F /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		1ED06BAA2574384C00B85C3F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1ED06B68256AF4D900B85C3F /* ContentView.swift */,
+				1ED06B8A256B119E00B85C3F /* LaunchView.swift */,
+				1ED06B952572559700B85C3F /* HeaderView.swift */,
+				1ED06BA52574374900B85C3F /* SelectionRowView.swift */,
+				1ED06B9C25725D7B00B85C3F /* InfoView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED06BA62574374900B85C3F /* SelectionRowView.swift in Sources */,
 				1ED06B7C256AF4DA00B85C3F /* ContentView.swift in Sources */,
 				1ED06B8B256B119E00B85C3F /* LaunchView.swift in Sources */,
 				1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,
@@ -211,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ED06BA72574374900B85C3F /* SelectionRowView.swift in Sources */,
 				1ED06B7D256AF4DA00B85C3F /* ContentView.swift in Sources */,
 				1ED06B8C256B119E00B85C3F /* LaunchView.swift in Sources */,
 				1ED06B7B256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,

@@ -107,7 +107,7 @@ struct ContentView: View {
                         Text("My Slider")
                     })
                     .padding(.horizontal, 20)
-                    
+                    .accentColor(.blue)
                     // MARK: - COPY PASSWORD
                     
                     Button(action: {
@@ -119,7 +119,7 @@ struct ContentView: View {
                         
                     }, label: {
                         Image(systemName: "doc.on.doc")
-                            //                                    .accentColor(.black)
+                            .accentColor(.blue)
                             .font(.system(size: 32))
                     })
                     .accentColor(.blue)
@@ -129,12 +129,10 @@ struct ContentView: View {
                     // MARK: - TOGGLE CHARACTERS
                     
                     GroupBox {
-                        ToggleView(checkedList: $isLetter, title: "Buchstaben")
-                        ToggleView(checkedList: $isNumber, title: "Zahlen")
-                        ToggleView(checkedList: $isSpecial, title: "Sonderzeichen")
+                        SelectionRowView(checkedList: $isLetter, title: "Buchstaben")
+                        SelectionRowView(checkedList: $isNumber, title: "Zahlen")
+                        SelectionRowView(checkedList: $isSpecial, title: "Sonderzeichen")
                     }
-                    
-                    
                 } //: VSTACK
                 .padding(.bottom, 30)
             } //: VSTACK
@@ -151,14 +149,13 @@ struct ContentView: View {
             )
             .padding(.top, 50)
             .padding(.horizontal, 16)
-            //            .frame(maxWidth: 720)
             
         } //: GEOMETRYREADER
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
                             
             generatePassword(characters, with: Int(sliderValue))
-//            password = "easyPassword+"
+            //            password = "easyPassword+"
         })
         .sheet(isPresented: $showingInfoView) {
             InfoView()
@@ -166,6 +163,7 @@ struct ContentView: View {
     }
     
 }
+
 
 // MARK: - PREVIEW
 
@@ -176,26 +174,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
             .preferredColorScheme(.dark)
         
-    }
-}
-
-struct ToggleView: View {
-    
-    @Binding var checkedList: Bool
-    var title: String
-    
-    var body: some View {
-        HStack {
-            Text(title)
-                .font(.title2)
-            Spacer()
-            Button(action: {
-                checkedList.toggle()
-            }, label: {
-                Image(systemName: checkedList ? "checkmark.rectangle" : "rectangle")
-                    .font(.system(size: 32))
-                    .accentColor(.blue)
-            })
-        }
     }
 }

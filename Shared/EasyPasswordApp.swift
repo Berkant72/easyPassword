@@ -12,6 +12,10 @@ struct EasyPasswordApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+//                .onDisappear(perform: {
+//                    NSApplication.shared.terminate(self)
+//                })
         }
+        
     }
 }
