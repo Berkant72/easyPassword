@@ -8,12 +8,12 @@
 import SwiftUI
 import MobileCoreServices
 
-enum PasswordType: String, CaseIterable, Identifiable {
-    case random
-    case pin
-    
-    var id: String { self.rawValue }
-}
+//enum PasswordType: String, CaseIterable, Identifiable {
+//    case random
+//    case pin
+//
+//    var id: String { self.rawValue }
+//}
 struct ContentView: View {
     
     // MARK: - PROPERTIES
@@ -22,21 +22,20 @@ struct ContentView: View {
     @State private var sliderMinValue = 3.0
     @State private var sliderMaxValue = 20.0
     @State private var showingInfoView: Bool = false
-    @State private var passwordType: PasswordType = .random
+    //    @State private var passwordType: PasswordType = .random
     @State private var showToggles: Bool = true
-//    @State private var isActivePicker: Bool = true
     @State private var colorStrength: Color = Color.red
     @StateObject var passwordGenerator = PasswordGenerator()
     
     let pasteboard = UIPasteboard.general
     
-        var slideInAnimation: Animation {
+    var slideInAnimation: Animation {
+        
+        Animation.spring(response: 1.5, dampingFraction: 0.5, blendDuration: 0.5)
+            .speed(1)
+            .delay(0.25)
+    }
     
-            Animation.spring(response: 1.5, dampingFraction: 0.5, blendDuration: 0.5)
-                .speed(1)
-                .delay(0.25)
-        }
-
     
     // MARK: - BODY
     
@@ -78,7 +77,7 @@ struct ContentView: View {
                             sliderMinValue = 6
                             sliderMaxValue = 50
                             passwordGenerator.password = ""
-                            passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
+                            passwordGenerator.generatePassword(with: Int(sliderValue))
                             showToggles = true
                             passwordGenerator.isRandom = true
                             passwordGenerator.isPin = false
@@ -99,8 +98,7 @@ struct ContentView: View {
                             sliderMinValue = 3
                             sliderMaxValue = 20
                             passwordGenerator.password = ""
-                            passwordGenerator.generatePin(passwordGenerator.characters, with: Int(sliderValue))
-                            
+                            passwordGenerator.generatePassword(with: Int(sliderValue))
                             showToggles = false
                             passwordGenerator.isRandom = false
                             passwordGenerator.isPin = true
@@ -118,7 +116,7 @@ struct ContentView: View {
                     .clipShape(Capsule())
                     .animation(slideInAnimation)
                     
-         
+                    
                     
                     // MARK: - CHANGE PASSWORD LENGTH
                     
@@ -127,15 +125,10 @@ struct ContentView: View {
                             .font(.body)
                         
                         Slider(value: $sliderValue, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
-                            // code
+                            
                             if value == false {
                                 passwordGenerator.password = ""
-                                if passwordGenerator.isRandom {            passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
-                                    //            password = "easyPassword+"
-                                }
-                                if passwordGenerator.isPin {
-                                    passwordGenerator.generatePin(passwordGenerator.characters, with: Int(sliderValue))
-                                }
+                                passwordGenerator.generatePassword(with: Int(sliderValue))
                                 
                             }
                         })
@@ -162,8 +155,6 @@ struct ContentView: View {
                     }
                     
                     
-                    
-                    
                     // MARK: - COPY PASSWORD OR REFRESH PASSWORD
                     
                     HStack {
@@ -172,10 +163,7 @@ struct ContentView: View {
                         
                         Button(action: {
                             pasteboard.string = passwordGenerator.password
-                            
                             // UIPasteboard.general.setValue("\(String(describing: password))", forPasteboardType: kUTTypePlainText as String)
-                            
-                            
                         }, label: {
                             Image(systemName: "doc.on.doc")
                                 .font(.system(size: 32))
@@ -191,22 +179,14 @@ struct ContentView: View {
                         // REFRESH BUTTON
                         
                         Button(action: {
-                            
-                            if passwordGenerator.isRandom {
-                                passwordGenerator.password = ""
-                                passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
-                                //            password = "easyPassword+"
-                            } else {
-                                passwordGenerator.password = ""
-                                passwordGenerator.generatePin(passwordGenerator.characters, with: Int(sliderValue))
-                            }
+                            passwordGenerator.password = ""
+                            passwordGenerator.generatePassword(with: Int(sliderValue))
                             
                         }, label: {
                             Image(systemName: "arrow.clockwise")
                                 .font(.system(size: 32))
                                 .accentColor(.blue)
                         })
-                        
                     }
                     .padding(.horizontal, 50)
                     
@@ -234,7 +214,7 @@ struct ContentView: View {
             sliderValue = 8
             sliderMinValue = 6
             sliderMaxValue = 50
-            passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
+            passwordGenerator.generatePassword(with: Int(sliderValue))
         })
         
         .sheet(isPresented: $showingInfoView) {
