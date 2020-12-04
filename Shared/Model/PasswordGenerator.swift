@@ -25,7 +25,7 @@ class PasswordGenerator: ObservableObject {
     
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let numbers = "0123456789"
-    let specials = "@!§$%&/()?,.-_;:?"
+    let symbols = "@!§$%&/()?,.-_;:?"
     
     // TODO: Show PIN only digits
     
@@ -37,36 +37,19 @@ class PasswordGenerator: ObservableObject {
     
     func generatePassword(_ from: String, with length: Int) {
         characters = ""
-        
         switch true {
-        case isLetter && isNumber && isSymbol:
-            print("isletter and isNumber and isSpecial")
-            characters.append(letters)
-            characters.append(numbers)
-            characters.append(specials)
-        case isLetter && isNumber:
-            print("isLetter and isNumber")
-            characters.append(letters)
-            characters.append(numbers)
         case isNumber && isSymbol:
-            print("isNumber and isSpecial")
+            characters.append(letters)
             characters.append(numbers)
-            characters.append(specials)
-        case isLetter && isSymbol:
-            print("isLetter an isSpecial")
-            characters.append(letters)
-            characters.append(specials)
-        case isLetter:
-            print("isLetter")
-            characters.append(letters)
+            characters.append(symbols)
         case isNumber:
-            print("isNumber")
+            characters.append(letters)
             characters.append(numbers)
         case isSymbol:
-            print("isSpecial")
-            characters.append(specials)
+            characters.append(letters)
+            characters.append(symbols)
         default:
-            characters = ""
+            characters.append(letters)
         }
         
         for _ in 0..<length {
