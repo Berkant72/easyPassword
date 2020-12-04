@@ -57,4 +57,34 @@ class PasswordGenerator: ObservableObject {
         }
         //        return password
     }
+    
+    func getStrengthColor(for length: Int) -> Color {
+        if isPin {
+            print("pin")
+            switch length {
+            case 0...5:
+                return Color.orange.opacity(0.5)
+            case 6...8:
+                return Color.green.opacity(0.6)
+            case 9...11:
+                return Color.green.opacity(0.6)
+            default:
+                return Color.green
+            }
+        } else {
+            print("random")
+            switch length {
+            case 0...5:
+                return Color.red.opacity(0.4)
+            case 6...8:
+                return Color.orange.opacity(0.5)
+            case 9...11:
+                return Color.green.opacity(0.6)
+            default:
+                return Color.green
+                
+            }
+        }
+    }
+    
 }

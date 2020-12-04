@@ -36,35 +36,7 @@ struct ContentView: View {
                 .speed(1)
                 .delay(0.25)
         }
-    
-    func getStrengthColor(for length: Int) -> Color {
-        if passwordGenerator.isPin {
-            print("pin")
-            switch length {
-            case 0...5:
-                return Color.orange.opacity(0.5)
-            case 6...8:
-                return Color.green.opacity(0.6)
-            case 9...11:
-                return Color.green.opacity(0.6)
-            default:
-                return Color.green
-            }
-        } else {
-            print("random")
-            switch length {
-            case 0...5:
-                return Color.red.opacity(0.4)
-            case 6...8:
-                return Color.orange.opacity(0.5)
-            case 9...11:
-                return Color.green.opacity(0.6)
-            default:
-                return Color.green
-                
-            }
-        }
-    }
+
     
     // MARK: - BODY
     
@@ -91,9 +63,10 @@ struct ContentView: View {
                     
                     Text("\(passwordGenerator.password)")
                         .font(.title2)
+                        .lineLimit(0)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 8)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(getStrengthColor(for: Int(sliderValue)), lineWidth: 2))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(passwordGenerator.getStrengthColor(for: Int(sliderValue)), lineWidth: 2))
                     
                     
                     // MARK: - TOGGLE CHARACTERS
@@ -159,7 +132,8 @@ struct ContentView: View {
                                 passwordGenerator.password = ""
                                 if passwordGenerator.isRandom {            passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
                                     //            password = "easyPassword+"
-                                } else {
+                                }
+                                if passwordGenerator.isPin {
                                     passwordGenerator.generatePin(passwordGenerator.characters, with: Int(sliderValue))
                                 }
                                 
@@ -193,6 +167,9 @@ struct ContentView: View {
                     // MARK: - COPY PASSWORD OR REFRESH PASSWORD
                     
                     HStack {
+                        
+                        // COPY BUTTON
+                        
                         Button(action: {
                             pasteboard.string = passwordGenerator.password
                             
@@ -210,6 +187,8 @@ struct ContentView: View {
                         
                         Spacer()
                             .frame(maxWidth: 300.0)
+                        
+                        // REFRESH BUTTON
                         
                         Button(action: {
                             
@@ -251,12 +230,11 @@ struct ContentView: View {
         } //: GEOMETRYREADER
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
-            if passwordGenerator.isRandom {            passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
-                //            password = "easyPassword+"
-            } else {
-                passwordGenerator.generatePin(passwordGenerator.characters, with: Int(sliderValue))
-            }
-            
+            passwordGenerator.isRandom = true
+            sliderValue = 8
+            sliderMinValue = 6
+            sliderMaxValue = 50
+            passwordGenerator.generatePassword(passwordGenerator.characters, with: Int(sliderValue))
         })
         
         .sheet(isPresented: $showingInfoView) {
