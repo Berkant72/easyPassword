@@ -18,19 +18,17 @@ struct ContentView: View {
     
     // MARK: - PROPERTIES
     
-    @State private var sliderValue = 6.0
-    @State private var sliderMinValue = 3.0
-    @State private var sliderMaxValue = 20.0
+    @State private var sliderValueRandom = 8.0
+    @State private var sliderValuePin = 6.0
+    @State private var sliderMinValue = 6.0
+    @State private var sliderMaxValue = 50.0
     @State private var showingInfoView: Bool = false
-    //    @State private var passwordType: PasswordType = .random
     @State private var showToggles: Bool = true
-    @State private var colorStrength: Color = Color.red
     @StateObject var passwordGenerator = PasswordGenerator()
     
     let pasteboard = UIPasteboard.general
     
     var slideInAnimation: Animation {
-        
         Animation.spring(response: 1.5, dampingFraction: 0.5, blendDuration: 0.5)
             .speed(1)
             .delay(0.25)
@@ -65,19 +63,19 @@ struct ContentView: View {
                         .lineLimit(0)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 8)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(passwordGenerator.getStrengthColor(for: Int(sliderValue)), lineWidth: 2))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(passwordGenerator.getStrengthColor(for: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin)), lineWidth: 2))
                     
                     
-                    // MARK: - TOGGLE CHARACTERS
+                    // MARK: - TOGGLE PASSWORDTYPE
                     
                     HStack {
                         
                         Button("Random", action: {
-                            sliderValue = 8
-                            sliderMinValue = 6
-                            sliderMaxValue = 50
-                            passwordGenerator.password = ""
-                            passwordGenerator.generatePassword(with: Int(sliderValue))
+//                            sliderValue = 8
+//                            sliderMinValue = 6
+//                            sliderMaxValue = 50
+//                            passwordGenerator.password = ""
+//                            passwordGenerator.generatePassword(with: Int(sliderValue))
                             showToggles = true
                             passwordGenerator.isRandom = true
                             passwordGenerator.isPin = false
@@ -94,11 +92,11 @@ struct ContentView: View {
                         
                         
                         Button("PIN", action: {
-                            sliderValue = 6
-                            sliderMinValue = 3
-                            sliderMaxValue = 20
-                            passwordGenerator.password = ""
-                            passwordGenerator.generatePassword(with: Int(sliderValue))
+//                            sliderValue = 6
+//                            sliderMinValue = 3
+//                            sliderMaxValue = 20
+//                            passwordGenerator.password = ""
+//                            passwordGenerator.generatePassword(with: Int(sliderValue))
                             showToggles = false
                             passwordGenerator.isRandom = false
                             passwordGenerator.isPin = true
@@ -121,14 +119,14 @@ struct ContentView: View {
                     // MARK: - CHANGE PASSWORD LENGTH
                     
                     HStack {
-                        Text("Länge: \(Int(sliderValue))")
+                        Text("Länge: \(Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))")
                             .font(.body)
                         
-                        Slider(value: $sliderValue, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
+                        Slider(value: passwordGenerator.isRandom ? $sliderValueRandom : $sliderValuePin, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
                             
                             if value == false {
                                 passwordGenerator.password = ""
-                                passwordGenerator.generatePassword(with: Int(sliderValue))
+                                passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
                                 
                             }
                         })
@@ -180,7 +178,7 @@ struct ContentView: View {
                         
                         Button(action: {
                             passwordGenerator.password = ""
-                            passwordGenerator.generatePassword(with: Int(sliderValue))
+                            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
                             
                         }, label: {
                             Image(systemName: "arrow.clockwise")
@@ -211,10 +209,7 @@ struct ContentView: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
             passwordGenerator.isRandom = true
-            sliderValue = 8
-            sliderMinValue = 6
-            sliderMaxValue = 50
-            passwordGenerator.generatePassword(with: Int(sliderValue))
+            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
         })
         
         .sheet(isPresented: $showingInfoView) {
