@@ -58,7 +58,7 @@ struct ContentView: View {
                     // MARK: - NEW PASSWORD
                     
                     
-                    Text("\(passwordGenerator.password)")
+                    Text("\(passwordGenerator.isRandom ? passwordGenerator.password : passwordGenerator.pin)")
                         .font(.title2)
                         .lineLimit(0)
                         .padding(.vertical, 8)
@@ -71,14 +71,15 @@ struct ContentView: View {
                     HStack {
                         
                         Button("Random", action: {
-//                            sliderValue = 8
-//                            sliderMinValue = 6
-//                            sliderMaxValue = 50
-//                            passwordGenerator.password = ""
-//                            passwordGenerator.generatePassword(with: Int(sliderValue))
+                            sliderValueRandom = 8
+                            sliderMinValue = 6
+                            sliderMaxValue = 50
+                            passwordGenerator.password = ""
+//                            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
                             showToggles = true
                             passwordGenerator.isRandom = true
                             passwordGenerator.isPin = false
+                            
                             
                         })
                         .font(.title2)
@@ -92,11 +93,11 @@ struct ContentView: View {
                         
                         
                         Button("PIN", action: {
-//                            sliderValue = 6
-//                            sliderMinValue = 3
-//                            sliderMaxValue = 20
-//                            passwordGenerator.password = ""
-//                            passwordGenerator.generatePassword(with: Int(sliderValue))
+                            sliderValuePin = 6
+                            sliderMinValue = 3
+                            sliderMaxValue = 20
+                            passwordGenerator.pin = ""
+//                            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
                             showToggles = false
                             passwordGenerator.isRandom = false
                             passwordGenerator.isPin = true
@@ -121,13 +122,14 @@ struct ContentView: View {
                     HStack {
                         Text("Länge: \(Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))")
                             .font(.body)
-                        
+                    
                         Slider(value: passwordGenerator.isRandom ? $sliderValueRandom : $sliderValuePin, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
-                            
+
                             if value == false {
                                 passwordGenerator.password = ""
+                                passwordGenerator.pin = ""
                                 passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
-                                
+
                             }
                         })
                         .padding(.horizontal, 20)
