@@ -15,6 +15,7 @@ class PasswordGenerator: ObservableObject {
     @Published var isRandom: Bool = true
     @Published var isPin: Bool = false
     @Published var password: String = ""
+    @Published var pin: String = ""
     
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let numbers = "0123456789"
