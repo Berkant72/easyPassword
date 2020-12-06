@@ -108,7 +108,6 @@ struct ContentView: View {
                         .foregroundColor(passwordGenerator.isPin ? .black : .gray)
                         .clipShape(Capsule())
                     }
-                    
                     .frame(width: 200, height: 40)
                     .padding(.horizontal, 8)
                     .background(Color.gray.opacity(0.5))
@@ -180,6 +179,7 @@ struct ContentView: View {
                         
                         Button(action: {
                             passwordGenerator.password = ""
+                            passwordGenerator.pin = ""
                             passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
                             
                         }, label: {

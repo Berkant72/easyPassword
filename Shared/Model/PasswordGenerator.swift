@@ -28,7 +28,10 @@ class PasswordGenerator: ObservableObject {
         var tempString = ""
         
         if isPin {
-            tempString.append(numbers)
+            for _ in 0..<length {
+                pin.append(numbers.randomElement() ?? ".")
+            }
+            
         } else {
             switch true {
             case isNumber && isSymbol:
