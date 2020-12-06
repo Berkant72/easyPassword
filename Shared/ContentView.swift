@@ -21,12 +21,30 @@ struct ContentView: View {
     @State private var sliderValueRandom = 8.0
     @State private var sliderValuePin = 6.0
     @State private var sliderMinValue = 6.0
-    @State private var sliderMaxValue = 50.0
+    @State private var sliderMaxValue = 100.0
     @State private var showingInfoView: Bool = false
     @State private var showToggles: Bool = true
     @StateObject var passwordGenerator = PasswordGenerator()
     
     let pasteboard = UIPasteboard.general
+    var textHeight: CGFloat {
+        switch sliderValueRandom {
+        case 0...19:
+            return 40.0
+        case 20...39:
+            return 80.0
+        case 40...59:
+            return 120.0
+        case 60...79:
+            return 160.0
+        case 80...100:
+            return 200.0
+        default:
+            return 50.0
+        }
+        
+    
+    }
     
     var slideInAnimation: Animation {
         Animation.spring(response: 1.5, dampingFraction: 0.5, blendDuration: 0.5)
@@ -34,6 +52,12 @@ struct ContentView: View {
             .delay(0.25)
     }
     
+    func generateNewValues() {
+        passwordGenerator.password = ""
+        passwordGenerator.pin = ""
+        passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
+    }
+
     
     // MARK: - BODY
     
@@ -46,7 +70,7 @@ struct ContentView: View {
                 
                 HeaderView()
                     .frame(width: geoReader.size.width, height: geoReader.size.height / 4, alignment: .center)
-                    .position(CGPoint(x: geoReader.frame(in: .global).midX, y: geoReader.frame(in: .global).minX + 100))
+                    .position(CGPoint(x: geoReader.frame(in: .global).midX - 20, y: geoReader.frame(in: .global).minX + 100))
                 
                 
                 Spacer()
@@ -57,10 +81,11 @@ struct ContentView: View {
                     
                     // MARK: - NEW PASSWORD
                     
-                    
                     Text("\(passwordGenerator.isRandom ? passwordGenerator.password : passwordGenerator.pin)")
                         .font(.title2)
-                        .lineLimit(0)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(nil)
+                        .frame(width: 280, height: passwordGenerator.isRandom ? textHeight : 40, alignment: .center)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 8)
                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(passwordGenerator.getStrengthColor(for: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin)), lineWidth: 2))
@@ -70,49 +95,47 @@ struct ContentView: View {
                     
                     HStack {
                         
-                        Button("Random", action: {
-                            sliderValueRandom = 8
+                        Button(action: {
                             sliderMinValue = 6
                             sliderMaxValue = 50
-                            passwordGenerator.password = ""
-//                            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
+                            generateNewValues()
                             showToggles = true
                             passwordGenerator.isRandom = true
                             passwordGenerator.isPin = false
                             
-                            
-                        })
-                        .font(.title2)
-                        .frame(width: 100, height: 32, alignment: .center)
-                        .background(passwordGenerator.isRandom ? Color.gray : Color.clear)
-                        .foregroundColor(passwordGenerator.isRandom ? .black : .gray)
-                        .clipShape(Capsule())
-                        
+                        }) {
+                            Text("Random")
+                                .font(.title2)
+                                .frame(width: 100, height: 32, alignment: .center)
+                                .background(passwordGenerator.isRandom ? Color.gray : Color.clear)
+                                .foregroundColor(passwordGenerator.isRandom ? .black : .gray)
+                        }
+                        .cornerRadius(6.0)
                         
                         Spacer()
                         
-                        
-                        Button("PIN", action: {
-                            sliderValuePin = 6
+                        Button(action: {
                             sliderMinValue = 3
                             sliderMaxValue = 20
-                            passwordGenerator.pin = ""
-//                            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
+                            generateNewValues()
                             showToggles = false
                             passwordGenerator.isRandom = false
                             passwordGenerator.isPin = true
-                        })
-                        .font(.title2)
-                        .frame(width: 100, height: 32, alignment: .center)
-                        .background(passwordGenerator.isPin ? Color.gray : Color.clear)
-                        .foregroundColor(passwordGenerator.isPin ? .black : .gray)
-                        .clipShape(Capsule())
-                    }
-                    .frame(width: 200, height: 40)
-                    .padding(.horizontal, 8)
-                    .background(Color.gray.opacity(0.5))
-                    .clipShape(Capsule())
-                    .animation(slideInAnimation)
+                        }) {
+                            Text("PIN")
+                                .font(.title2)
+                                .frame(width: 100, height: 32, alignment: .center)
+                                .background(passwordGenerator.isPin ? Color.gray : Color.clear)
+                                .foregroundColor(passwordGenerator.isPin ? .black : .gray)
+                            
+                        }
+                        .cornerRadius(6.0)
+                    } //: HSTACK
+                    .frame(width: 200, height: 32, alignment: .center)
+                    .border(Color.gray.opacity(0.4), width: 1)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(6.0)
+                    .animation(Animation.easeOut(duration: 0.5))
                     
                     
                     
@@ -121,19 +144,16 @@ struct ContentView: View {
                     HStack {
                         Text("Länge: \(Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))")
                             .font(.body)
-                    
+                        
                         Slider(value: passwordGenerator.isRandom ? $sliderValueRandom : $sliderValuePin, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
-
+                            
                             if value == false {
-                                passwordGenerator.password = ""
-                                passwordGenerator.pin = ""
-                                passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
-
+                                generateNewValues()
                             }
                         })
                         .padding(.horizontal, 20)
                         .accentColor(.blue)
-                    }
+                    } //: HSTACK
                     
                     
                     // MARK: - TOGGLES NUMBERS AND SYMBOLS
@@ -146,12 +166,12 @@ struct ContentView: View {
                                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
                             
                         } //: VSTACK
-                        
                     } else {
                         Rectangle()
                             .fill(Color.clear)
                             .frame(height: 70)
                     }
+                    
                     
                     
                     // MARK: - COPY PASSWORD OR REFRESH PASSWORD
@@ -161,16 +181,17 @@ struct ContentView: View {
                         // COPY BUTTON
                         
                         Button(action: {
-                            pasteboard.string = passwordGenerator.password
+                            if passwordGenerator.isRandom {
+                                pasteboard.string = passwordGenerator.password
+                            } else {
+                                pasteboard.string = passwordGenerator.pin
+                            }
                             // UIPasteboard.general.setValue("\(String(describing: password))", forPasteboardType: kUTTypePlainText as String)
                         }, label: {
                             Image(systemName: "doc.on.doc")
                                 .font(.system(size: 32))
-                                .accentColor(.blue)
                             
                         })
-                        .accentColor(.blue)
-                        .padding(.horizontal, 20)
                         
                         Spacer()
                             .frame(maxWidth: 300.0)
@@ -178,18 +199,13 @@ struct ContentView: View {
                         // REFRESH BUTTON
                         
                         Button(action: {
-                            passwordGenerator.password = ""
-                            passwordGenerator.pin = ""
-                            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
+                            generateNewValues()
                             
                         }, label: {
                             Image(systemName: "arrow.clockwise")
                                 .font(.system(size: 32))
-                                .accentColor(.blue)
                         })
-                    }
-                    .padding(.horizontal, 50)
-                    
+                    } //: HSTACK
                 } //: VSTACK
                 .padding(.bottom, 50)
             } //: VSTACK
@@ -211,7 +227,7 @@ struct ContentView: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
             passwordGenerator.isRandom = true
-            passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
+            generateNewValues()
         })
         
         .sheet(isPresented: $showingInfoView) {
@@ -220,76 +236,6 @@ struct ContentView: View {
     }
     
 }
-
-//struct PasswordSegmentView: View {
-//
-////    @StateObject var pwGenarator = PasswordGenerator()
-//    @Binding var sliderValue: Double
-//    @Binding var sliderMin:Double
-//    @Binding var sliderMax: Double
-//    @Binding var showToggles: Bool
-//    @Binding var passwordGenerator: PasswordGenerator
-//
-//    var slideInAnimation: Animation {
-//
-//        Animation.spring(response: 1.5, dampingFraction: 0.5, blendDuration: 0.5)
-//            .speed(1)
-//            .delay(0.25)
-//    }
-//
-//    var body: some View {
-//
-//
-//        HStack {
-//
-//            Button("Random", action: {
-//                sliderValue = 8
-//                sliderMin = 6
-//                sliderMax = 50
-//                pwGenarator.password = "asdfsa"
-//                pwGenarator.generatePassword(pwGenarator.characters, with: Int(sliderValue))
-//                showToggles = true
-//                pwGenarator.isRandom = true
-//                pwGenarator.isPin = false
-//
-//            })
-//            .font(.title2)
-//            .frame(width: 100, height: 32, alignment: .center)
-//            .background(passwordGenerator.isRandom ? Color.gray : Color.clear)
-//            .foregroundColor(passwordGenerator.isRandom ? .black : .gray)
-//            .clipShape(Capsule())
-//
-//
-//            Spacer()
-//
-//
-//            Button("PIN", action: {
-//                sliderValue = 6
-//                sliderMin = 3
-//                sliderMax = 20
-//                pwGenarator.password = "11111"
-//                pwGenarator.generatePin(pwGenarator.characters, with: Int(sliderValue))
-//
-//                showToggles = false
-//                pwGenarator.isRandom = false
-//                pwGenarator.isPin = true
-//            })
-//            .font(.title2)
-//            .frame(width: 100, height: 32, alignment: .center)
-//            .background(pwGenarator.isPin ? Color.gray : Color.clear)
-//            .foregroundColor(pwGenarator.isPin ? .black : .gray)
-//            .clipShape(Capsule())
-//        }
-//
-//        .frame(width: 200, height: 40)
-//        .padding(.horizontal, 8)
-//        .background(Color.gray.opacity(0.5))
-//        .clipShape(Capsule())
-//        .animation(slideInAnimation)
-//    }
-//}
-
-
 
 
 // MARK: - PREVIEW
