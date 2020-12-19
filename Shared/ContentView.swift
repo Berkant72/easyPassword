@@ -227,20 +227,20 @@ struct ContentView: View {
     
 }
 
-struct RandomOptionsView: View {
-    @Binding var numbers: Bool
-    @Binding var symbols: Bool
-    
-    var body: some View {
-        VStack {
-            Toggle("Zahlen", isOn: $numbers)
-                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-            Toggle("Symbole", isOn: $symbols)
-                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-            
-        }
-    }
-}
+//struct RandomOptionsView: View {
+//    @Binding var numbers: Bool
+//    @Binding var symbols: Bool
+//    
+//    var body: some View {
+//        VStack {
+//            Toggle("Zahlen", isOn: $numbers)
+//                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+//            Toggle("Symbole", isOn: $symbols)
+//                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+//            
+//        }
+//    }
+//}
 
 // MARK: - PREVIEW
 
