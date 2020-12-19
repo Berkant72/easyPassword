@@ -8,27 +8,22 @@
 import SwiftUI
 import MobileCoreServices
 
-//enum PasswordType: String, CaseIterable, Identifiable {
-//    case random
-//    case pin
-//
-//    var id: String { self.rawValue }
-//}
+
 struct ContentView: View {
     
     // MARK: - PROPERTIES
-    
-    @State private var sliderValueRandom = 8.0
-    @State private var sliderValuePin = 6.0
+
     @State private var sliderMinValue = 6.0
-    @State private var sliderMaxValue = 100.0
+    @State private var sliderMaxValue = 50.0
     @State private var showingInfoView: Bool = false
     @State private var showToggles: Bool = true
     @StateObject var passwordGenerator = PasswordGenerator()
     
     let pasteboard = UIPasteboard.general
+    
+    
     var textHeight: CGFloat {
-        switch sliderValueRandom {
+        switch passwordGenerator.sliderValueRandom {
         case 0...19:
             return 40.0
         case 20...39:
@@ -42,22 +37,7 @@ struct ContentView: View {
         default:
             return 50.0
         }
-        
-    
     }
-    
-    var slideInAnimation: Animation {
-        Animation.spring(response: 1.5, dampingFraction: 0.5, blendDuration: 0.5)
-            .speed(1)
-            .delay(0.25)
-    }
-    
-    func generateNewValues() {
-        passwordGenerator.password = ""
-        passwordGenerator.pin = ""
-        passwordGenerator.generatePassword(with: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))
-    }
-
     
     // MARK: - BODY
     
@@ -81,14 +61,30 @@ struct ContentView: View {
                     
                     // MARK: - NEW PASSWORD
                     
-                    Text("\(passwordGenerator.isRandom ? passwordGenerator.password : passwordGenerator.pin)")
+                    //                    HStack(alignment: .center, spacing: 2) {
+                    //                    ForEach(0 ..< Int(passwordGenerator.sliderValueRandom), id: \.self) { char in
+                    //                            Text(allCharacters.randomElement() ?? "")
+                    //                            }
+                    //
+                    //   }
+                    
+                    Text("\(passwordGenerator.isPassword ? passwordGenerator.password : passwordGenerator.pin)")
                         .font(.title2)
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
-                        .frame(width: 280, height: passwordGenerator.isRandom ? textHeight : 40, alignment: .center)
+                        .frame(width: 280, height: passwordGenerator.isPassword ? textHeight : 40, alignment: .center)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 8)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(passwordGenerator.getStrengthColor(for: Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin)), lineWidth: 2))
+                        .overlay(
+                            RoundedRectangle(
+                                cornerRadius: 10)
+                                .stroke(passwordGenerator.getStrengthColor(for: passwordGenerator.passwordQuality),
+                                        lineWidth: 2)
+                        )
+                    
+                    Text("\(passwordGenerator.getPasswordQuality().rawValue)")
+                        .font(.subheadline)
+                    
                     
                     
                     // MARK: - TOGGLE PASSWORDTYPE
@@ -98,17 +94,17 @@ struct ContentView: View {
                         Button(action: {
                             sliderMinValue = 6
                             sliderMaxValue = 50
-                            generateNewValues()
+                            passwordGenerator.generateNewValues()
                             showToggles = true
-                            passwordGenerator.isRandom = true
+                            passwordGenerator.isPassword = true
                             passwordGenerator.isPin = false
-                            
+                            passwordGenerator.lastPassword = passwordGenerator.password
                         }) {
                             Text("Random")
                                 .font(.title2)
                                 .frame(width: 100, height: 32, alignment: .center)
-                                .background(passwordGenerator.isRandom ? Color.gray : Color.clear)
-                                .foregroundColor(passwordGenerator.isRandom ? .black : .gray)
+                                .background(passwordGenerator.isPassword ? Color.gray : Color.clear)
+                                .foregroundColor(passwordGenerator.isPassword ? .black : .gray)
                         }
                         .cornerRadius(6.0)
                         
@@ -117,10 +113,11 @@ struct ContentView: View {
                         Button(action: {
                             sliderMinValue = 3
                             sliderMaxValue = 20
-                            generateNewValues()
+                            passwordGenerator.generateNewValues()
                             showToggles = false
-                            passwordGenerator.isRandom = false
+                            passwordGenerator.isPassword = false
                             passwordGenerator.isPin = true
+                            passwordGenerator.lastPin = passwordGenerator.pin
                         }) {
                             Text("PIN")
                                 .font(.title2)
@@ -142,13 +139,13 @@ struct ContentView: View {
                     // MARK: - CHANGE PASSWORD LENGTH
                     
                     HStack {
-                        Text("Länge: \(Int(passwordGenerator.isRandom ? sliderValueRandom : sliderValuePin))")
+                        Text("Länge: \(Int(passwordGenerator.isPassword ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
                             .font(.body)
                         
-                        Slider(value: passwordGenerator.isRandom ? $sliderValueRandom : $sliderValuePin, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
+                        Slider(value: passwordGenerator.isPassword ? $passwordGenerator.sliderValueRandom : $passwordGenerator.sliderValuePin, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
                             
                             if value == false {
-                                generateNewValues()
+                                passwordGenerator.generateNewValues()
                             }
                         })
                         .padding(.horizontal, 20)
@@ -159,13 +156,7 @@ struct ContentView: View {
                     // MARK: - TOGGLES NUMBERS AND SYMBOLS
                     
                     if showToggles {
-                        VStack {
-                            Toggle("Zahlen", isOn: $passwordGenerator.isNumber)
-                                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-                            Toggle("Symbole", isOn: $passwordGenerator.isSymbol)
-                                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-                            
-                        } //: VSTACK
+                        RandomOptionsView(numbers: $passwordGenerator.isNumber, symbols: $passwordGenerator.isSymbol)
                     } else {
                         Rectangle()
                             .fill(Color.clear)
@@ -181,7 +172,7 @@ struct ContentView: View {
                         // COPY BUTTON
                         
                         Button(action: {
-                            if passwordGenerator.isRandom {
+                            if passwordGenerator.isPassword {
                                 pasteboard.string = passwordGenerator.password
                             } else {
                                 pasteboard.string = passwordGenerator.pin
@@ -190,16 +181,15 @@ struct ContentView: View {
                         }, label: {
                             Image(systemName: "doc.on.doc")
                                 .font(.system(size: 32))
-                            
                         })
                         
                         Spacer()
-                            .frame(maxWidth: 300.0)
+                            .frame(maxWidth: 200.0)
                         
                         // REFRESH BUTTON
                         
                         Button(action: {
-                            generateNewValues()
+                            passwordGenerator.generateNewValues()
                             
                         }, label: {
                             Image(systemName: "arrow.clockwise")
@@ -226,8 +216,8 @@ struct ContentView: View {
         } //: GEOMETRYREADER
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
-            passwordGenerator.isRandom = true
-            generateNewValues()
+            passwordGenerator.isPassword = true
+            passwordGenerator.generateNewValues()
         })
         
         .sheet(isPresented: $showingInfoView) {
@@ -237,11 +227,24 @@ struct ContentView: View {
     
 }
 
+struct RandomOptionsView: View {
+    @Binding var numbers: Bool
+    @Binding var symbols: Bool
+    
+    var body: some View {
+        VStack {
+            Toggle("Zahlen", isOn: $numbers)
+                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+            Toggle("Symbole", isOn: $symbols)
+                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+            
+        }
+    }
+}
 
 // MARK: - PREVIEW
 
 struct ContentView_Previews: PreviewProvider {
-    
     
     static var previews: some View {
         ContentView()
