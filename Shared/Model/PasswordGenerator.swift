@@ -18,11 +18,8 @@ enum PasswordQuality: String {
 
 class PasswordGenerator: ObservableObject {
     
-    @Published var isLetter: Bool = true
     @Published var isNumber: Bool = true
     @Published var isSymbol: Bool = true
-    @Published var isPassword: Bool = false
-    @Published var isPin: Bool = false
     @Published var password: String = ""
     @Published var pin: String = ""
     @Published var lastPassword = ""
@@ -30,7 +27,16 @@ class PasswordGenerator: ObservableObject {
     @Published var sliderValueRandom = 8.0
     @Published var sliderValuePin = 4.0
     @Published var passwordQuality = PasswordQuality.stark
+    @Published var pickerSelection: Int = 1
+    @Published var sliderMinValue = 6.0
+    @Published var sliderMaxValue = 32.0
+    @Published var showToggles: Bool = true
     
+//    var showToggles: Bool = true {
+//        willSet {
+//            objectWillChange.send()
+//        }
+//    }
     
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let numbers = "0123456789"
@@ -42,7 +48,7 @@ class PasswordGenerator: ObservableObject {
     func generateNewValues() {
         password = ""
         pin = ""
-        generatePassword(with: Int(isPassword ? sliderValueRandom : sliderValuePin))
+        generatePassword(with: Int(pickerSelection == 1 ? sliderValueRandom : sliderValuePin))
         passwordQuality = getPasswordQuality()
         lastPin = pin
         lastPassword = password
@@ -50,14 +56,14 @@ class PasswordGenerator: ObservableObject {
     
     func generatePassword(with length: Int) {
         
+        setSliderValue()
         var tempString = ""
         
-        if isPin {
-            for _ in 0..<length {
-                pin.append(numbers.randomElement() ?? " ")
-            }
+        switch pickerSelection {
+        case 1:
+            showToggles = true
+            lastPassword = password
             
-        } else {
             switch true {
             case isNumber && isSymbol:
                 tempString.append(letters)
@@ -72,19 +78,36 @@ class PasswordGenerator: ObservableObject {
             default:
                 tempString.append(letters)
             }
+        case 2:
+            showToggles = false
+            lastPin = pin
+            
+            for _ in 0..<length {
+                pin.append(numbers.randomElement() ?? " ")
+            }
+        default:
+            break
         }
+        
         
         for _ in 0..<length {
             password.append(tempString.randomElement() ?? " ")
         }
     }
     
+    func setSliderValue() {
+        if pickerSelection == 1 {
+            sliderMinValue = 6
+            sliderMaxValue = 32
+        } else {
+            sliderMinValue = 4
+            sliderMaxValue = 20
+        }
+    }
     
     func getPasswordQuality() -> PasswordQuality {
-        //        let passwordQuality = PasswordQuality.schwach
         
-        
-        if isPassword && isNumber && isSymbol {
+        if pickerSelection == 1 && isNumber && isSymbol {
             switch sliderValueRandom {
             case 0...5:
                 return .sehrSchwach
@@ -99,7 +122,7 @@ class PasswordGenerator: ObservableObject {
             default:
                 return .sehrSchwach
             }
-        } else if isPassword && (isNumber || isSymbol) {
+        } else if pickerSelection == 1 && (isNumber || isSymbol) {
             switch sliderValueRandom {
             case 0...6:
                 return .sehrSchwach
@@ -114,7 +137,7 @@ class PasswordGenerator: ObservableObject {
             default:
                 return .sehrSchwach
             }
-        } else if isPassword {
+        } else if pickerSelection == 1 {
             switch sliderValueRandom {
             case 0...6:
                 return .sehrSchwach
@@ -131,7 +154,7 @@ class PasswordGenerator: ObservableObject {
             }
         }
         
-        if isPin {
+        if pickerSelection == 2 {
             switch sliderValuePin {
             case 0...10:
                 return .sehrSchwach
@@ -151,20 +174,15 @@ class PasswordGenerator: ObservableObject {
         
         switch passwordQuality {
         case .sehrSchwach:
-            print("sehr schwach")
-            return .red
+            return Color.red.opacity(0.8)
         case .schwach:
-            print("schwach")
             return Color.red.opacity(0.5)
         case .mittelmaeßig:
-            print("mittelmäßig")
-            return Color.orange.opacity(0.5)
+            return Color.orange.opacity(0.6)
         case .stark:
-            print("stark")
-            return Color.green.opacity(0.6)
+            return Color.green.opacity(0.4)
         case .sehrStark:
-            print("sehr stark")
-            return .green
+            return Color.green.opacity(0.9)
         }
     }
     
