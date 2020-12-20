@@ -100,8 +100,8 @@ class PasswordGenerator: ObservableObject {
             sliderMinValue = 6
             sliderMaxValue = 32
         } else {
-            sliderMinValue = 4
-            sliderMaxValue = 20
+            sliderMinValue = 3
+            sliderMaxValue = 12
         }
     }
     
