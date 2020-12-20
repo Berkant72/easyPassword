@@ -15,10 +15,8 @@ struct RandomOptionsView: View {
         VStack {
             Toggle("Zahlen", isOn: $numbers)
                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-                .font(.title2)
             Toggle("Symbole", isOn: $symbols)
                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-                .font(.title2)
         }
     }
 }
