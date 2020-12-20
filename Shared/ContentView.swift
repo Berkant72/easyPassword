@@ -12,17 +12,13 @@ import MobileCoreServices
 struct ContentView: View {
     
     // MARK: - PROPERTIES
-
-    @State private var sliderMinValue = 6.0
-    @State private var sliderMaxValue = 50.0
+    
     @State private var showingInfoView: Bool = false
-    @State private var showToggles: Bool = true
     @StateObject var passwordGenerator = PasswordGenerator()
     
     let pasteboard = UIPasteboard.general
     
-    
-    var textHeight: CGFloat {
+    var textFrameHeight: CGFloat {
         switch passwordGenerator.sliderValueRandom {
         case 0...19:
             return 40.0
@@ -68,11 +64,11 @@ struct ContentView: View {
                     //
                     //   }
                     
-                    Text("\(passwordGenerator.isPassword ? passwordGenerator.password : passwordGenerator.pin)")
+                    Text("\(passwordGenerator.pickerSelection == 1 ? passwordGenerator.password : passwordGenerator.pin)")
                         .font(.title2)
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
-                        .frame(width: 280, height: passwordGenerator.isPassword ? textHeight : 40, alignment: .center)
+                        .frame(width: 280, height: passwordGenerator.pickerSelection == 1 ? textFrameHeight : 44, alignment: .center)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 8)
                         .overlay(
@@ -86,63 +82,40 @@ struct ContentView: View {
                         .font(.subheadline)
                     
                     
-                    
                     // MARK: - TOGGLE PASSWORDTYPE
                     
-                    HStack {
-                        
-                        Button(action: {
-                            sliderMinValue = 6
-                            sliderMaxValue = 50
-                            passwordGenerator.generateNewValues()
-                            showToggles = true
-                            passwordGenerator.isPassword = true
-                            passwordGenerator.isPin = false
-                            passwordGenerator.lastPassword = passwordGenerator.password
-                        }) {
-                            Text("Random")
-                                .font(.title2)
-                                .frame(width: 100, height: 32, alignment: .center)
-                                .background(passwordGenerator.isPassword ? Color.gray : Color.clear)
-                                .foregroundColor(passwordGenerator.isPassword ? .black : .gray)
-                        }
-                        .cornerRadius(6.0)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            sliderMinValue = 3
-                            sliderMaxValue = 20
-                            passwordGenerator.generateNewValues()
-                            showToggles = false
-                            passwordGenerator.isPassword = false
-                            passwordGenerator.isPin = true
-                            passwordGenerator.lastPin = passwordGenerator.pin
-                        }) {
-                            Text("PIN")
-                                .font(.title2)
-                                .frame(width: 100, height: 32, alignment: .center)
-                                .background(passwordGenerator.isPin ? Color.gray : Color.clear)
-                                .foregroundColor(passwordGenerator.isPin ? .black : .gray)
-                            
-                        }
-                        .cornerRadius(6.0)
-                    } //: HSTACK
-                    .frame(width: 200, height: 32, alignment: .center)
-                    .border(Color.gray.opacity(0.4), width: 1)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(6.0)
-                    .animation(Animation.easeOut(duration: 0.5))
                     
+                    Picker(
+                        selection: $passwordGenerator.pickerSelection,
+                        label: Text("Choose Options"))
+                    {
+                        Text("Random").tag(1)
+                        Text("PIN").tag(2)
+                    }
+                    .onChange(of: passwordGenerator.pickerSelection, perform: { value in
+                        
+                        if value == 1 {
+                            print("Random gewählt")
+                            passwordGenerator.showToggles = true
+                            passwordGenerator.generateNewValues()
+                        } else {
+                            print("PIN gewählt")
+                            passwordGenerator.showToggles = false
+                            passwordGenerator.generateNewValues()
+                        }
+                    })
+                    .padding(.all)
+                    .frame(width: 200, height: 44, alignment: .center)
+                    .pickerStyle(SegmentedPickerStyle())
                     
                     
                     // MARK: - CHANGE PASSWORD LENGTH
                     
                     HStack {
-                        Text("Länge: \(Int(passwordGenerator.isPassword ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
+                        Text("Länge: \(Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
                             .font(.body)
                         
-                        Slider(value: passwordGenerator.isPassword ? $passwordGenerator.sliderValueRandom : $passwordGenerator.sliderValuePin, in: sliderMinValue ... sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
+                        Slider(value: passwordGenerator.pickerSelection == 1 ? $passwordGenerator.sliderValueRandom : $passwordGenerator.sliderValuePin, in: passwordGenerator.sliderMinValue ... passwordGenerator.sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
                             
                             if value == false {
                                 passwordGenerator.generateNewValues()
@@ -150,20 +123,21 @@ struct ContentView: View {
                         })
                         .padding(.horizontal, 20)
                         .accentColor(.blue)
+                        
                     } //: HSTACK
                     
                     
                     // MARK: - TOGGLES NUMBERS AND SYMBOLS
                     
-                    if showToggles {
+                    if passwordGenerator.showToggles {
                         RandomOptionsView(numbers: $passwordGenerator.isNumber, symbols: $passwordGenerator.isSymbol)
+                        
                     } else {
                         Rectangle()
                             .fill(Color.clear)
                             .frame(height: 70)
                     }
-                    
-                    
+                
                     
                     // MARK: - COPY PASSWORD OR REFRESH PASSWORD
                     
@@ -172,7 +146,7 @@ struct ContentView: View {
                         // COPY BUTTON
                         
                         Button(action: {
-                            if passwordGenerator.isPassword {
+                            if passwordGenerator.pickerSelection == 1 {
                                 pasteboard.string = passwordGenerator.password
                             } else {
                                 pasteboard.string = passwordGenerator.pin
@@ -190,7 +164,6 @@ struct ContentView: View {
                         
                         Button(action: {
                             passwordGenerator.generateNewValues()
-                            
                         }, label: {
                             Image(systemName: "arrow.clockwise")
                                 .font(.system(size: 32))
@@ -216,7 +189,6 @@ struct ContentView: View {
         } //: GEOMETRYREADER
         .edgesIgnoringSafeArea(.all)
         .onAppear(perform: {
-            passwordGenerator.isPassword = true
             passwordGenerator.generateNewValues()
         })
         
@@ -226,21 +198,6 @@ struct ContentView: View {
     }
     
 }
-
-//struct RandomOptionsView: View {
-//    @Binding var numbers: Bool
-//    @Binding var symbols: Bool
-//    
-//    var body: some View {
-//        VStack {
-//            Toggle("Zahlen", isOn: $numbers)
-//                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-//            Toggle("Symbole", isOn: $symbols)
-//                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-//            
-//        }
-//    }
-//}
 
 // MARK: - PREVIEW
 
