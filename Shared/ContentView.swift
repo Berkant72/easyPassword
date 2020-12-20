@@ -35,6 +35,19 @@ struct ContentView: View {
         }
     }
     
+    //    func getColorForDigits(in string: String) -> Color {
+    //        // print("String ist :\(string)")
+    //
+    //        for i in 0...9 {
+    //            if string.contains("\(i)") {
+    //                print("Die Zahl \(i) wurde gefunden")
+    //
+    //            }
+    //            return .red
+    //        }
+    //        return .black
+    //    }
+    
     // MARK: - BODY
     
     var body: some View {
@@ -57,14 +70,8 @@ struct ContentView: View {
                     
                     // MARK: - NEW PASSWORD
                     
-                    //                    HStack(alignment: .center, spacing: 2) {
-                    //                    ForEach(0 ..< Int(passwordGenerator.sliderValueRandom), id: \.self) { char in
-                    //                            Text(allCharacters.randomElement() ?? "")
-                    //                            }
-                    //
-                    //   }
-                    
                     Text("\(passwordGenerator.pickerSelection == 1 ? passwordGenerator.password : passwordGenerator.pin)")
+                        //                        .foregroundColor(passwordGenerator.pickerSelection == 2 ? .black : getColorForDigits(in: passwordGenerator.password))
                         .font(.title2)
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
@@ -115,14 +122,15 @@ struct ContentView: View {
                         Text("Länge: \(Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
                             .font(.body)
                         
-                        Slider(value: passwordGenerator.pickerSelection == 1 ? $passwordGenerator.sliderValueRandom : $passwordGenerator.sliderValuePin, in: passwordGenerator.sliderMinValue ... passwordGenerator.sliderMaxValue, step: 1, onEditingChanged: { ( value ) in
-                            
-                            if value == false {
+                        Slider(
+                            value: passwordGenerator.pickerSelection == 1 ? $passwordGenerator.sliderValueRandom : $passwordGenerator.sliderValuePin,
+                            in: passwordGenerator.sliderMinValue ... passwordGenerator.sliderMaxValue,
+                            step: 1)
+                            .onChange(of: Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin), perform: { ( _ ) in
                                 passwordGenerator.generateNewValues()
-                            }
-                        })
-                        .padding(.horizontal, 20)
-                        .accentColor(.blue)
+                            })
+                            .padding(.horizontal, 20)
+                            .accentColor(.blue)
                         
                     } //: HSTACK
                     
@@ -137,7 +145,7 @@ struct ContentView: View {
                             .fill(Color.clear)
                             .frame(height: 70)
                     }
-                
+                    
                     
                     // MARK: - COPY PASSWORD OR REFRESH PASSWORD
                     
@@ -170,7 +178,7 @@ struct ContentView: View {
                         })
                     } //: HSTACK
                 } //: VSTACK
-                .padding(.bottom, 50)
+                .padding(.bottom, 80)
             } //: VSTACK
             .overlay(
                 // INFO

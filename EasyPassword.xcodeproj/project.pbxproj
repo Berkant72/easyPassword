@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E6595C5258E453600BBEFE1 /* RandomOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */; };
+		1E6595C6258E453600BBEFE1 /* RandomOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */; };
 		1E88EA46257445220089E208 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88EA45257445220089E208 /* PasswordGenerator.swift */; };
 		1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */; };
 		1ED06B7B256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */; };
@@ -20,11 +22,10 @@
 		1ED06B972572559700B85C3F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B952572559700B85C3F /* HeaderView.swift */; };
 		1ED06B9D25725D7C00B85C3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B9C25725D7B00B85C3F /* InfoView.swift */; };
 		1ED06B9E25725D7C00B85C3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B9C25725D7B00B85C3F /* InfoView.swift */; };
-		1ED06BA62574374900B85C3F /* SelectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06BA52574374900B85C3F /* SelectionRowView.swift */; };
-		1ED06BA72574374900B85C3F /* SelectionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06BA52574374900B85C3F /* SelectionRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomOptionsView.swift; sourceTree = "<group>"; };
 		1E88EA45257445220089E208 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyPasswordApp.swift; sourceTree = "<group>"; };
 		1ED06B68256AF4D900B85C3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		1ED06B8A256B119E00B85C3F /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		1ED06B952572559700B85C3F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		1ED06B9C25725D7B00B85C3F /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		1ED06BA52574374900B85C3F /* SelectionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +119,8 @@
 			children = (
 				1ED06B8A256B119E00B85C3F /* LaunchView.swift */,
 				1ED06B952572559700B85C3F /* HeaderView.swift */,
-				1ED06BA52574374900B85C3F /* SelectionRowView.swift */,
 				1ED06B9C25725D7B00B85C3F /* InfoView.swift */,
+				1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -222,13 +222,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1ED06BA62574374900B85C3F /* SelectionRowView.swift in Sources */,
 				1ED06B7C256AF4DA00B85C3F /* ContentView.swift in Sources */,
 				1ED06B8B256B119E00B85C3F /* LaunchView.swift in Sources */,
 				1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,
 				1ED06B9D25725D7C00B85C3F /* InfoView.swift in Sources */,
 				1E88EA46257445220089E208 /* PasswordGenerator.swift in Sources */,
 				1ED06B962572559700B85C3F /* HeaderView.swift in Sources */,
+				1E6595C5258E453600BBEFE1 /* RandomOptionsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,11 +236,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1ED06BA72574374900B85C3F /* SelectionRowView.swift in Sources */,
 				1ED06B7D256AF4DA00B85C3F /* ContentView.swift in Sources */,
 				1ED06B8C256B119E00B85C3F /* LaunchView.swift in Sources */,
 				1ED06B7B256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,
 				1ED06B9E25725D7C00B85C3F /* InfoView.swift in Sources */,
+				1E6595C6258E453600BBEFE1 /* RandomOptionsView.swift in Sources */,
 				1ED06B972572559700B85C3F /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
