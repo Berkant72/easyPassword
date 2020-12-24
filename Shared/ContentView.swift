@@ -102,11 +102,11 @@ struct ContentView: View {
                     .onChange(of: passwordGenerator.pickerSelection, perform: { value in
                         
                         if value == 1 {
-                            print("Random gewählt")
+//                            print("Random gewählt")
                             passwordGenerator.showToggles = true
                             passwordGenerator.generateNewValues()
                         } else {
-                            print("PIN gewählt")
+//                            print("PIN gewählt")
                             passwordGenerator.showToggles = false
                             passwordGenerator.generateNewValues()
                         }
