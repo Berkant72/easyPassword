@@ -18,35 +18,22 @@ struct ContentView: View {
     
     let pasteboard = UIPasteboard.general
     
+    
+//    func size(withAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> CGSize
+ 
+    
     var textFrameHeight: CGFloat {
+        
         switch passwordGenerator.sliderValueRandom {
-        case 0...19:
-            return 40.0
-        case 20...39:
-            return 80.0
-        case 40...59:
-            return 120.0
-        case 60...79:
-            return 160.0
-        case 80...100:
-            return 200.0
+        case 0...20:
+            return 32.0
+        case 21...40:
+            return 64.0
         default:
-            return 50.0
+            return 18.0
         }
     }
-    
-    //    func getColorForDigits(in string: String) -> Color {
-    //        // print("String ist :\(string)")
-    //
-    //        for i in 0...9 {
-    //            if string.contains("\(i)") {
-    //                print("Die Zahl \(i) wurde gefunden")
-    //
-    //            }
-    //            return .red
-    //        }
-    //        return .black
-    //    }
+
     
     // MARK: - BODY
     
@@ -75,8 +62,8 @@ struct ContentView: View {
                         .font(.title2)
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
-                        .frame(width: 280, height: passwordGenerator.pickerSelection == 1 ? textFrameHeight : 44, alignment: .center)
-                        .padding(.vertical, 8)
+//                        .frame(width: geoReader.size.width - 20, height: passwordGenerator.pickerSelection == 1 ? textFrameHeight : 44, alignment: .center)
+                        .padding(.vertical, 4)
                         .padding(.horizontal, 8)
                         .overlay(
                             RoundedRectangle(
@@ -84,9 +71,11 @@ struct ContentView: View {
                                 .stroke(passwordGenerator.getStrengthColor(for: passwordGenerator.passwordQuality),
                                         lineWidth: 2)
                         )
+                        .truncationMode(.middle)
                     
                     Text("\(passwordGenerator.getPasswordQuality().rawValue)")
-                        .font(.subheadline)
+                        .font(.body)
+                        .foregroundColor(passwordGenerator.getStrengthColor(for: passwordGenerator.passwordQuality))
                     
                     
                     // MARK: - TOGGLE PASSWORDTYPE
@@ -111,8 +100,8 @@ struct ContentView: View {
                             passwordGenerator.generateNewValues()
                         }
                     })
-                    .padding(.all)
-                    .frame(width: 200, height: 44, alignment: .center)
+//                    .padding(.all)
+//                    .frame(width: 200, height: 44, alignment: .center)
                     .pickerStyle(SegmentedPickerStyle())
                     
                     
@@ -179,6 +168,7 @@ struct ContentView: View {
                     } //: HSTACK
                 } //: VSTACK
                 .padding(.bottom, 80)
+                .frame(minWidth: 300, idealWidth: 375, maxWidth: 600, minHeight: 24, idealHeight: 30, maxHeight: .infinity, alignment: .center)
             } //: VSTACK
             .overlay(
                 // INFO
