@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum PasswordQuality: String {
-    case sehrSchwach = "sehr schwach"
-    case schwach = "schwach"
-    case mittelmaeßig = "mittelmäßig"
-    case stark = "stark"
-    case sehrStark = "sehr stark"
+    case veryWeak = "sehr schwach"
+    case weak = "schwach"
+    case medium = "mittelmäßig"
+    case strong = "stark"
+    case veryStrong = "sehr stark"
 }
 
 
@@ -26,7 +26,7 @@ class PasswordGenerator: ObservableObject {
     @Published var lastPin = ""
     @Published var sliderValueRandom = 8.0
     @Published var sliderValuePin = 4.0
-    @Published var passwordQuality = PasswordQuality.stark
+    @Published var passwordQuality = PasswordQuality.strong
     @Published var pickerSelection: Int = 1
     @Published var sliderMinValue = 6.0
     @Published var sliderMaxValue = 32.0
@@ -40,9 +40,9 @@ class PasswordGenerator: ObservableObject {
     
     let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let numbers = "0123456789"
-    let symbols = "@!§$%&+-/*()?,._;:?=#<>"
+    let symbols = "{[(<@!§$%&+-/*?,._;:?=#>)]}"
     
-    //    let allCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@!§$%&+-/*()?,._;:?=#<>"
+    //    let allCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{[(<@!§$%&+-/*?,._;:?=#>)]}"
     //    let allCharactersArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9","@","!","§","$","%","&","+","-","/","*","(",")","?",",",".","_",";",":","?","=","#","<",">"]
     
     func generateNewValues() {
@@ -110,78 +110,78 @@ class PasswordGenerator: ObservableObject {
         if pickerSelection == 1 && isNumber && isSymbol {
             switch sliderValueRandom {
             case 0...5:
-                return .sehrSchwach
+                return .veryWeak
             case 6...6:
-                return .schwach
+                return .weak
             case 7...7:
-                return .mittelmaeßig
+                return .medium
             case 8...8:
-                return .stark
+                return .strong
             case 9...50:
-                return .sehrStark
+                return .veryStrong
             default:
-                return .sehrSchwach
+                return .veryWeak
             }
         } else if pickerSelection == 1 && (isNumber || isSymbol) {
             switch sliderValueRandom {
             case 0...6:
-                return .sehrSchwach
+                return .veryWeak
             case 7...7:
-                return .schwach
+                return .weak
             case 8...8:
-                return .mittelmaeßig
+                return .medium
             case 9...9:
-                return .stark
+                return .strong
             case 10...50:
-                return .sehrStark
+                return .veryStrong
             default:
-                return .sehrSchwach
+                return .veryWeak
             }
         } else if pickerSelection == 1 {
             switch sliderValueRandom {
             case 0...6:
-                return .sehrSchwach
+                return .veryWeak
             case 7...8:
-                return .schwach
+                return .weak
             case 9...9:
-                return .mittelmaeßig
+                return .medium
             case 10...10:
-                return .stark
+                return .strong
             case 11...50:
-                return .sehrStark
+                return .veryStrong
             default:
-                return .sehrSchwach
+                return .veryWeak
             }
         }
         
         if pickerSelection == 2 {
             switch sliderValuePin {
             case 0...10:
-                return .sehrSchwach
+                return .veryWeak
             case 11...11:
-                return .schwach
+                return .weak
             case 12...20:
-                return .mittelmaeßig
+                return .medium
             default:
-                return .sehrSchwach
+                return .veryWeak
             }
         }
         
-        return .mittelmaeßig
+        return .medium
     }
     
     func getStrengthColor(for passwordQuality: PasswordQuality) -> Color {
         
         switch passwordQuality {
-        case .sehrSchwach:
+        case .veryWeak:
             return Color.red.opacity(0.8)
-        case .schwach:
+        case .weak:
             return Color.red.opacity(0.5)
-        case .mittelmaeßig:
+        case .medium:
             return Color.orange.opacity(0.6)
-        case .stark:
+        case .strong:
             return Color.green.opacity(0.4)
-        case .sehrStark:
+        case .veryStrong:
             return Color.green.opacity(0.9)
         }
     }
