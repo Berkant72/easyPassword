@@ -27,3 +27,22 @@ struct RandomOptionsView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
+
+
+/*
+ // Stepper value couldn't update password generator
+ 
+ Stepper(value: $numbersValue, in: 0...3, step: 1) { _ in
+     passwordGenerator.numbersCount = numbersValue
+     passwordGenerator.generateNewValues()
+ } label: {
+     Text("Zahlen ( max. \(passwordGenerator.numbersCount) )")
+ }
+
+ Stepper(value: $symbolsValue, in: 0...3, step: 1) { _ in
+     passwordGenerator.symbolsCount = symbolsValue
+     passwordGenerator.generateNewValues()
+ } label: {
+     Text("Symbole ( max. \(passwordGenerator.symbolsCount) )")
+ }
+*/
