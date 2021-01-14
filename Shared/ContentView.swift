@@ -8,7 +8,6 @@
 import SwiftUI
 import MobileCoreServices
 
-
 struct ContentView: View {
     
     // MARK: - PROPERTIES
@@ -26,11 +25,11 @@ struct ContentView: View {
         
         switch passwordGenerator.sliderValueRandom {
         case 0...20:
-            return 32.0
+            return 44.0
         case 21...40:
             return 64.0
         default:
-            return 18.0
+            return 44.0
         }
     }
 
@@ -53,12 +52,11 @@ struct ContentView: View {
                 
                 // MARK: - PASSWORD GENERATOR
                 
-                VStack(alignment: .center, spacing: 20) {
+                VStack(alignment: .center, spacing: 10) {
                     
                     // MARK: - NEW PASSWORD
                     
                     Text("\(passwordGenerator.pickerSelection == 1 ? passwordGenerator.password : passwordGenerator.pin)")
-                        //                        .foregroundColor(passwordGenerator.pickerSelection == 2 ? .black : getColorForDigits(in: passwordGenerator.password))
                         .font(.title2)
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
@@ -91,23 +89,19 @@ struct ContentView: View {
                     .onChange(of: passwordGenerator.pickerSelection, perform: { value in
                         
                         if value == 1 {
-//                            print("Random gewählt")
                             passwordGenerator.showToggles = true
                             passwordGenerator.generateNewValues()
                         } else {
-//                            print("PIN gewählt")
                             passwordGenerator.showToggles = false
                             passwordGenerator.generateNewValues()
                         }
                     })
-//                    .padding(.all)
-//                    .frame(width: 200, height: 44, alignment: .center)
                     .pickerStyle(SegmentedPickerStyle())
                     
                     
                     // MARK: - CHANGE PASSWORD LENGTH
                     
-                    HStack {
+                    HStack(spacing: 8) {
                         Text("Länge: \(Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
                             .font(.body)
                         
@@ -118,7 +112,6 @@ struct ContentView: View {
                             .onChange(of: Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin), perform: { ( _ ) in
                                 passwordGenerator.generateNewValues()
                             })
-                            .padding(.horizontal, 20)
                             .accentColor(.blue)
                         
                     } //: HSTACK
@@ -168,7 +161,8 @@ struct ContentView: View {
                     } //: HSTACK
                 } //: VSTACK
                 .padding(.bottom, 80)
-                .frame(minWidth: 300, idealWidth: 375, maxWidth: 600, minHeight: 24, idealHeight: 30, maxHeight: .infinity, alignment: .center)
+                .padding(.horizontal, 20)
+                .frame(minWidth: 300, idealWidth: 375, maxWidth: 800, minHeight: 250, idealHeight: 300, maxHeight: 600, alignment: .center)
             } //: VSTACK
             .overlay(
                 // INFO
