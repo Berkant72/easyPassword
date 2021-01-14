@@ -28,22 +28,15 @@ class PasswordGenerator: ObservableObject {
     @Published var sliderValuePin = 4.0
     @Published var passwordQuality = PasswordQuality.strong
     @Published var pickerSelection: Int = 1
-    @Published var sliderMinValue = 6.0
-    @Published var sliderMaxValue = 32.0
     @Published var showToggles: Bool = true
     
-//    var showToggles: Bool = true {
-//        willSet {
-//            objectWillChange.send()
-//        }
-//    }
+    var sliderMinValue = 1.0
+    var sliderMaxValue = 64.0
     
-    let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let numbers = "0123456789"
-    let symbols = "{[(<@!§$%&+-/*?,._;:?=#>)]}"
+    let lettersArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    let numbersArray = ["0","1","2","3","4","5","6","7","8","9"]
+    let symbolsArray = ["{","[","(","<","@","!","§","$","%","&","+","-","/","*","?",",",".","_",";",":","=","#",">",")","]","}"]
     
-    //    let allCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{[(<@!§$%&+-/*?,._;:?=#>)]}"
-    //    let allCharactersArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9","@","!","§","$","%","&","+","-","/","*","(",")","?",",",".","_",";",":","?","=","#","<",">"]
     
     func generateNewValues() {
         password = ""
@@ -56,8 +49,8 @@ class PasswordGenerator: ObservableObject {
     
     func generatePassword(with length: Int) {
         
-        setSliderValue()
-        var tempString = ""
+        getSliderMinAndMaxValue()
+        var tempArray = [""]
         
         switch pickerSelection {
         case 1:
@@ -66,24 +59,24 @@ class PasswordGenerator: ObservableObject {
             
             switch true {
             case isNumber && isSymbol:
-                tempString.append(letters)
-                tempString.append(numbers)
-                tempString.append(symbols)
+                tempArray.append(contentsOf: lettersArray)
+                tempArray.append(contentsOf: numbersArray)
+                tempArray.append(contentsOf: symbolsArray)
             case isNumber:
-                tempString.append(letters)
-                tempString.append(numbers)
+                tempArray.append(contentsOf: lettersArray)
+                tempArray.append(contentsOf: numbersArray)
             case isSymbol:
-                tempString.append(letters)
-                tempString.append(symbols)
+                tempArray.append(contentsOf: lettersArray)
+                tempArray.append(contentsOf: symbolsArray)
             default:
-                tempString.append(letters)
+                tempArray.append(contentsOf: lettersArray)
             }
         case 2:
             showToggles = false
             lastPin = pin
             
             for _ in 0..<length {
-                pin.append(numbers.randomElement() ?? " ")
+                pin.append(numbersArray.randomElement() ?? " ")
             }
         default:
             break
@@ -91,14 +84,14 @@ class PasswordGenerator: ObservableObject {
         
         
         for _ in 0..<length {
-            password.append(tempString.randomElement() ?? " ")
+            password.append(tempArray.randomElement() ?? " ")
         }
     }
     
-    func setSliderValue() {
+    func getSliderMinAndMaxValue() {
         if pickerSelection == 1 {
             sliderMinValue = 6
-            sliderMaxValue = 32
+            sliderMaxValue = 64
         } else {
             sliderMinValue = 3
             sliderMaxValue = 12
@@ -115,55 +108,47 @@ class PasswordGenerator: ObservableObject {
                 return .weak
             case 7...7:
                 return .medium
-            case 8...8:
+            case 8...12:
                 return .strong
-            case 9...50:
-                return .veryStrong
             default:
-                return .veryWeak
+                return .veryStrong
             }
         } else if pickerSelection == 1 && (isNumber || isSymbol) {
             switch sliderValueRandom {
             case 0...6:
                 return .veryWeak
-            case 7...7:
+            case 7...8:
                 return .weak
-            case 8...8:
+            case 9...12:
                 return .medium
-            case 9...9:
+            case 13...15:
                 return .strong
-            case 10...50:
-                return .veryStrong
             default:
-                return .veryWeak
+                return .veryStrong
             }
         } else if pickerSelection == 1 {
             switch sliderValueRandom {
             case 0...6:
                 return .veryWeak
-            case 7...8:
+            case 7...9:
                 return .weak
-            case 9...9:
+            case 10...13:
                 return .medium
-            case 10...10:
+            case 14...18:
                 return .strong
-            case 11...50:
-                return .veryStrong
             default:
-                return .veryWeak
+                return .veryStrong
             }
         }
         
         if pickerSelection == 2 {
             switch sliderValuePin {
-            case 0...10:
+            case 0...6:
                 return .veryWeak
-            case 11...11:
+            case 7...11:
                 return .weak
-            case 12...20:
-                return .medium
             default:
-                return .veryWeak
+                return .medium
             }
         }
         
