@@ -18,8 +18,8 @@ struct ContentView: View {
     let pasteboard = UIPasteboard.general
     
     
-//    func size(withAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> CGSize
- 
+    //    func size(withAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> CGSize
+    
     
     var textFrameHeight: CGFloat {
         
@@ -32,7 +32,7 @@ struct ContentView: View {
             return 44.0
         }
     }
-
+    
     
     // MARK: - BODY
     
@@ -57,12 +57,7 @@ struct ContentView: View {
                     // MARK: - NEW PASSWORD
                     
                     Text("\(passwordGenerator.pickerSelection == 1 ? passwordGenerator.password : passwordGenerator.pin)")
-                        .font(.title2)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(nil)
-//                        .frame(width: geoReader.size.width - 20, height: passwordGenerator.pickerSelection == 1 ? textFrameHeight : 44, alignment: .center)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
+                        .modifier(passwordTextModifier())
                         .overlay(
                             RoundedRectangle(
                                 cornerRadius: 10)
@@ -120,8 +115,7 @@ struct ContentView: View {
                     // MARK: - TOGGLES NUMBERS AND SYMBOLS
                     
                     if passwordGenerator.showToggles {
-                        RandomOptionsView(numbers: $passwordGenerator.isNumber, symbols: $passwordGenerator.isSymbol)
-                        
+                        RandomOptionsView(passwordGenerator: passwordGenerator)
                     } else {
                         Rectangle()
                             .fill(Color.clear)
