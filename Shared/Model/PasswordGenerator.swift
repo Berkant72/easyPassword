@@ -159,7 +159,7 @@ class PasswordGenerator: ObservableObject {
         
         switch passwordQuality {
         case .veryWeak:
-            return Color.red.opacity(0.8)
+            return Color.red
         case .weak:
             return Color.red.opacity(0.5)
         case .medium:
@@ -167,7 +167,7 @@ class PasswordGenerator: ObservableObject {
         case .strong:
             return Color.green.opacity(0.4)
         case .veryStrong:
-            return Color.green.opacity(0.9)
+            return Color.green
         }
     }
     
