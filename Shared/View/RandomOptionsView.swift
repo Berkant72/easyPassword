@@ -8,23 +8,29 @@
 import SwiftUI
 
 struct RandomOptionsView: View {
-    @Binding var numbers: Bool
-    @Binding var symbols: Bool
+
+    @ObservedObject var passwordGenerator: PasswordGenerator
+    
     
     var body: some View {
         VStack {
-            Toggle("Zahlen", isOn: $numbers)
+            Toggle("Zahlen", isOn: $passwordGenerator.isNumber)
                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-            Toggle("Symbole", isOn: $symbols)
+                .onChange(of: passwordGenerator.isNumber, perform: { ( _ ) in
+                    passwordGenerator.generateNewValues()
+                })
+            Toggle("Symbole", isOn: $passwordGenerator.isSymbol)
                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+                .onChange(of: passwordGenerator.isSymbol, perform: { ( _ ) in
+                    passwordGenerator.generateNewValues()
+                })
         }
     }
 }
 
 struct RandomOptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        RandomOptionsView(numbers: .constant(true), symbols: .constant(true))
-            .previewLayout(.sizeThatFits)
+        RandomOptionsView(passwordGenerator: PasswordGenerator())
     }
 }
 
