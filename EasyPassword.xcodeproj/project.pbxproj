@@ -10,23 +10,29 @@
 		1E6595C5258E453600BBEFE1 /* RandomOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */; };
 		1E6595C6258E453600BBEFE1 /* RandomOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */; };
 		1E88EA46257445220089E208 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E88EA45257445220089E208 /* PasswordGenerator.swift */; };
+		1E93661226C3A494009090D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E93661026C3A494009090D2 /* InfoPlist.strings */; };
+		1E93661526C3A494009090D2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1E93661326C3A494009090D2 /* Localizable.strings */; };
 		1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */; };
 		1ED06B7B256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */; };
 		1ED06B7C256AF4DA00B85C3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B68256AF4D900B85C3F /* ContentView.swift */; };
 		1ED06B7D256AF4DA00B85C3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B68256AF4D900B85C3F /* ContentView.swift */; };
 		1ED06B7E256AF4DA00B85C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED06B69256AF4DA00B85C3F /* Assets.xcassets */; };
 		1ED06B7F256AF4DA00B85C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED06B69256AF4DA00B85C3F /* Assets.xcassets */; };
-		1ED06B8B256B119E00B85C3F /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B8A256B119E00B85C3F /* LaunchView.swift */; };
-		1ED06B8C256B119E00B85C3F /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B8A256B119E00B85C3F /* LaunchView.swift */; };
 		1ED06B962572559700B85C3F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B952572559700B85C3F /* HeaderView.swift */; };
 		1ED06B972572559700B85C3F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B952572559700B85C3F /* HeaderView.swift */; };
 		1ED06B9D25725D7C00B85C3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B9C25725D7B00B85C3F /* InfoView.swift */; };
 		1ED06B9E25725D7C00B85C3F /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED06B9C25725D7B00B85C3F /* InfoView.swift */; };
+		1EDCF8AD25C5B717009DD135 /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDCF8AC25C5B717009DD135 /* Binding-OnChange.swift */; };
+		1EDCF8B125C5B750009DD135 /* Color-Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDCF8B025C5B750009DD135 /* Color-Additions.swift */; };
+		1EDCF8B625C5B799009DD135 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDCF8B525C5B799009DD135 /* Modifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomOptionsView.swift; sourceTree = "<group>"; };
 		1E88EA45257445220089E208 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
+		1E93661126C3A494009090D2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1E93661426C3A494009090D2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1E93661726C3B749009090D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyPasswordApp.swift; sourceTree = "<group>"; };
 		1ED06B68256AF4D900B85C3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1ED06B69256AF4DA00B85C3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -35,9 +41,11 @@
 		1ED06B76256AF4DA00B85C3F /* EasyPassword.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyPassword.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ED06B78256AF4DA00B85C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1ED06B79256AF4DA00B85C3F /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		1ED06B8A256B119E00B85C3F /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		1ED06B952572559700B85C3F /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		1ED06B9C25725D7B00B85C3F /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		1EDCF8AC25C5B717009DD135 /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
+		1EDCF8B025C5B750009DD135 /* Color-Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Additions.swift"; sourceTree = "<group>"; };
+		1EDCF8B525C5B799009DD135 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +87,11 @@
 		1ED06B66256AF4D900B85C3F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				1ED06B68256AF4D900B85C3F /* ContentView.swift */,
 				1ED06B67256AF4D900B85C3F /* EasyPasswordApp.swift */,
+				1ED06B68256AF4D900B85C3F /* ContentView.swift */,
 				1E88EA44257444FE0089E208 /* Model */,
 				1ED06BAA2574384C00B85C3F /* View */,
+				1EDCF8AB25C5B69D009DD135 /* Extensions */,
 				1ED06B69256AF4DA00B85C3F /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -101,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				1ED06B71256AF4DA00B85C3F /* Info.plist */,
+				1E93661326C3A494009090D2 /* Localizable.strings */,
+				1E93661026C3A494009090D2 /* InfoPlist.strings */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -117,12 +128,21 @@
 		1ED06BAA2574384C00B85C3F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1ED06B8A256B119E00B85C3F /* LaunchView.swift */,
 				1ED06B952572559700B85C3F /* HeaderView.swift */,
 				1ED06B9C25725D7B00B85C3F /* InfoView.swift */,
 				1E6595C4258E453600BBEFE1 /* RandomOptionsView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1EDCF8AB25C5B69D009DD135 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1EDCF8AC25C5B717009DD135 /* Binding-OnChange.swift */,
+				1EDCF8B025C5B750009DD135 /* Color-Additions.swift */,
+				1EDCF8B525C5B799009DD135 /* Modifiers.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,7 +189,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1230;
 				TargetAttributes = {
 					1ED06B6D256AF4DA00B85C3F = {
 						CreatedOnToolsVersion = 12.2;
@@ -186,6 +206,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 1ED06B61256AF4D800B85C3F;
 			productRefGroup = 1ED06B6F256AF4DA00B85C3F /* Products */;
@@ -204,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED06B7E256AF4DA00B85C3F /* Assets.xcassets in Resources */,
+				1E93661526C3A494009090D2 /* Localizable.strings in Resources */,
+				1E93661226C3A494009090D2 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,9 +246,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED06B7C256AF4DA00B85C3F /* ContentView.swift in Sources */,
-				1ED06B8B256B119E00B85C3F /* LaunchView.swift in Sources */,
+				1EDCF8B125C5B750009DD135 /* Color-Additions.swift in Sources */,
 				1ED06B7A256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,
+				1EDCF8B625C5B799009DD135 /* Modifiers.swift in Sources */,
 				1ED06B9D25725D7C00B85C3F /* InfoView.swift in Sources */,
+				1EDCF8AD25C5B717009DD135 /* Binding-OnChange.swift in Sources */,
 				1E88EA46257445220089E208 /* PasswordGenerator.swift in Sources */,
 				1ED06B962572559700B85C3F /* HeaderView.swift in Sources */,
 				1E6595C5258E453600BBEFE1 /* RandomOptionsView.swift in Sources */,
@@ -237,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED06B7D256AF4DA00B85C3F /* ContentView.swift in Sources */,
-				1ED06B8C256B119E00B85C3F /* LaunchView.swift in Sources */,
 				1ED06B7B256AF4DA00B85C3F /* EasyPasswordApp.swift in Sources */,
 				1ED06B9E25725D7C00B85C3F /* InfoView.swift in Sources */,
 				1E6595C6258E453600BBEFE1 /* RandomOptionsView.swift in Sources */,
@@ -246,6 +270,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1E93661026C3A494009090D2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E93661126C3A494009090D2 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1E93661326C3A494009090D2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1E93661426C3A494009090D2 /* de */,
+				1E93661726C3B749009090D2 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1ED06B80256AF4DA00B85C3F /* Debug */ = {
@@ -410,6 +454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2YU38T3WV9;
@@ -434,6 +479,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2YU38T3WV9;

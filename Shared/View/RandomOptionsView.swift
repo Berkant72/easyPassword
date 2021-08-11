@@ -14,17 +14,18 @@ struct RandomOptionsView: View {
     
     var body: some View {
         VStack {
-            Toggle("Zahlen", isOn: $passwordGenerator.isNumber)
-                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+            Toggle("Numbers", isOn: $passwordGenerator.isNumber)
+                .toggleStyle(SwitchToggleStyle(tint: .orange))
                 .onChange(of: passwordGenerator.isNumber, perform: { ( _ ) in
                     passwordGenerator.generateNewValues()
                 })
-            Toggle("Symbole", isOn: $passwordGenerator.isSymbol)
-                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+            Toggle("Symbols", isOn: $passwordGenerator.isSymbol)
+                .toggleStyle(SwitchToggleStyle(tint: .orange))
                 .onChange(of: passwordGenerator.isSymbol, perform: { ( _ ) in
                     passwordGenerator.generateNewValues()
                 })
         }
+//        .accentColor(Color.accentColor)
     }
 }
 

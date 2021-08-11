@@ -10,6 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     // MARK: - PROPERTIES
     
+    @AppStorage("isDarkMode") private var isDarkMode: Bool =  false
     @State private var animateTitle: Bool = false
     
     let title = "easyPassword+"
@@ -21,15 +22,17 @@ struct HeaderView: View {
             VStack {
                 
                 Image(systemName: "lock.rectangle")
+                    .foregroundColor(.orange)
                     .font(.system(size: 60))
-                    .shadow(color: .gray, radius: 2, x: 4.0, y: 4.0)
+                    .shadow(color: .orange.opacity(0.5), radius: 8, x: 4.0, y: 4.0)
                     .scaleEffect(CGSize(width: animateTitle ? 1.5 : 0.2, height: animateTitle ? 1.5 : 0.2))
                     .animation(Animation.easeIn.speed(0.4))
                 
                 
                 Text("\(title)")
+                    .foregroundColor(.orange)
                     .font(.headline)
-                    .shadow(color: .gray, radius: 2, x: 4.0, y: 4.0)
+                    .shadow(color: .orange.opacity(0.5), radius: 8, x: 4.0, y: 4.0)
                     .offset(x: 0, y: animateTitle ? 40 : 0)
                     .scaleEffect(CGSize(width: animateTitle ? 1.5 : 0.2, height: animateTitle ? 1.5 : 0.2))
                     .animation(Animation.easeIn.speed(0.4))
@@ -44,6 +47,7 @@ struct HeaderView: View {
             .onDisappear(perform: {
                 animateTitle = false
             })
+            .preferredColorScheme(isDarkMode ? .dark : .light)
 
     }
 }

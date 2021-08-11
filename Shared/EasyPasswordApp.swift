@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct EasyPasswordApp: App {
+    
+    @AppStorage("isDarkMode") private var isDarkMode: Bool =  false
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(isDarkMode ? .dark : .light) 
 //                .onDisappear(perform: {
 //                    NSApplication.shared.terminate(self)
 //                })

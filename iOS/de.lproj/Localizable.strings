@@ -1,0 +1,53 @@
+/* Copyrights info. */
+"© 2020 All rights reserved." = "© 2020 Alle Rechte vorbehalten.";
+
+/* About the application. */
+"About the application" = "Über die App";
+
+/* Info about the app. */
+"Application" = "App";
+
+/* Choose options. */
+"Choose options" = "Wähle Optionen";
+
+/* Copyright. */
+"Copyright" = "Copyright";
+
+/* Button for switch to dark mode. */
+"Dark Mode" = "Dunkelmodus";
+
+/* Info about Developer. */
+"Developer" = "Entwickler";
+
+/* Length slider. */
+"Length" = "Länge";
+
+/* Password quality - medium. */
+"medium" = "mittelmäßig";
+
+/* Numbers toggle. */
+"Numbers" = "Zahlen";
+
+/* Random picker. */
+"Random" = "Zufall";
+
+/* No comment provided by engineer. */
+"Settings" = "Einstellungen";
+
+/* Password quality - strong. */
+"strong" = "stark";
+
+/* Symbols toggle. */
+"Symbols" = "Symbole";
+
+/* Password quality - very strong. */
+"very strong" = "sehr stark";
+
+/* Password quality - very weak. */
+"very weak" = "sehr schwach";
+
+/* Info about website. */
+"Website" = "Webseite";
+
+/* Password quality - weak. */
+"weak" = "schwach";

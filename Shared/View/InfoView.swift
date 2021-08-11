@@ -12,6 +12,7 @@ struct InfoView: View {
     // MARK: - // PROPERTIES
     
     @Environment(\.presentationMode) var presentationMode
+    @AppStorage("isDarkMode") private var isDarkMode: Bool =  false
 
     private let keyVersion = "CFBundleShortVersionString"
     private let keyBundle = "CFBundleVersion"
@@ -35,11 +36,18 @@ struct InfoView: View {
     // MARK: - BODY
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10){
+        VStack(alignment: .center, spacing: 10) {
             HeaderView()
                 .frame(width: 350, height: 250, alignment: .center)
             
             Spacer()
+            
+            Form {
+                Section(header: Text("Settings")) {
+                    Toggle("Dark Mode", isOn: $isDarkMode)
+                        .toggleStyle(SwitchToggleStyle(tint: .orange))
+                }
+            }.frame(height: 100)
             
             Form {
                 Section(header: Text("About the application")) {
@@ -48,7 +56,7 @@ struct InfoView: View {
                     FormRowView(firstItem: "Developer", secondItem: "Berkant Dursun")
                     FormRowView(firstItem: "Designer", secondItem: "Selim Dursun")
                     FormRowView(firstItem: "Website", secondItem: "www.berkantdursun.de")
-                    FormRowView(firstItem: "Copyright", secondItem: "© 2020 All rights reserved")
+                    FormRowView(firstItem: "Copyright", secondItem: "© 2020 All rights reserved.")
                     FormRowView(firstItem: "Version", secondItem: "\(getVersion())(\(getBuild()))")
                 } //: SECTION
             } //: FORM
@@ -66,7 +74,7 @@ struct InfoView: View {
         }
             .padding(.top, 30)
             .padding(.trailing, 20)
-            .accentColor(.secondary)
+//            .accentColor(.secondary)
             , alignment: .topTrailing
         )
     }
@@ -83,9 +91,10 @@ struct FormRowView: View {
     
     var body: some View {
         HStack {
-            Text(firstItem).foregroundColor(.gray)
+            Text(LocalizedStringKey("\(firstItem)"))
+                .foregroundColor(.gray)
             Spacer()
-            Text(secondItem)
+            Text(LocalizedStringKey("\(secondItem)"))
         }
     }
 }
