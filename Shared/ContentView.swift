@@ -17,23 +17,6 @@ struct ContentView: View {
     
     let pasteboard = UIPasteboard.general
     
-    
-    //    func size(withAttributes attrs: [NSAttributedString.Key : Any]? = nil) -> CGSize
-    
-    
-    var textFrameHeight: CGFloat {
-        
-        switch passwordGenerator.sliderValueRandom {
-        case 0...20:
-            return 44.0
-        case 21...40:
-            return 64.0
-        default:
-            return 44.0
-        }
-    }
-    
-    
     // MARK: - BODY
     
     var body: some View {
@@ -64,10 +47,10 @@ struct ContentView: View {
                                 .stroke(passwordGenerator.getStrengthColor(for: passwordGenerator.passwordQuality),
                                         lineWidth: 2)
                         )
-                        .truncationMode(.middle)
+                        .fixedSize(horizontal: false, vertical: true) // Used fixed size to expand the text vertically
                     
                     Text("\(passwordGenerator.getPasswordQuality().rawValue)")
-                        .font(.body)
+                        .font(.title2) 
                         .foregroundColor(passwordGenerator.getStrengthColor(for: passwordGenerator.passwordQuality))
                     
                     
@@ -97,7 +80,7 @@ struct ContentView: View {
                     // MARK: - CHANGE PASSWORD LENGTH
                     
                     HStack(spacing: 8) {
-                        Text("Länge: \(Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
+                        Text("Length: \(Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin))")
                             .font(.body)
                         
                         Slider(
@@ -107,7 +90,6 @@ struct ContentView: View {
                             .onChange(of: Int(passwordGenerator.pickerSelection == 1 ? passwordGenerator.sliderValueRandom : passwordGenerator.sliderValuePin), perform: { ( _ ) in
                                 passwordGenerator.generateNewValues()
                             })
-                            .accentColor(.blue)
                         
                     } //: HSTACK
                     
@@ -161,12 +143,11 @@ struct ContentView: View {
             .overlay(
                 // INFO
                 Button(action: {
-                    showingInfoView = true
-                }, label: {
-                    Image(systemName: "info.circle")
-                })
-                .accentColor(.blue)
-                .font(.title),
+                showingInfoView = true
+            }, label: {
+                Image(systemName: "info.circle")
+            })
+                    .font(.title),
                 alignment: .topTrailing
             )
             .padding(.top, 50)
@@ -191,8 +172,5 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.light)
-        ContentView()
-            .preferredColorScheme(.dark)
     }
 }
