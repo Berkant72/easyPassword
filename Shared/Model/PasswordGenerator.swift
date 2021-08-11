@@ -8,11 +8,11 @@
 import SwiftUI
 
 enum PasswordQuality: String {
-    case veryWeak = "sehr schwach"
-    case weak = "schwach"
-    case medium = "mittelmäßig"
-    case strong = "stark"
-    case veryStrong = "sehr stark"
+    case veryWeak = "very weak"
+    case toWeak = "weak"
+    case medium = "medium"
+    case strong = "strong"
+    case veryStrong = "very strong"
 }
 
 
@@ -105,7 +105,7 @@ class PasswordGenerator: ObservableObject {
             case 0...5:
                 return .veryWeak
             case 6...6:
-                return .weak
+                return .toWeak
             case 7...7:
                 return .medium
             case 8...12:
@@ -118,7 +118,7 @@ class PasswordGenerator: ObservableObject {
             case 0...6:
                 return .veryWeak
             case 7...8:
-                return .weak
+                return .toWeak
             case 9...12:
                 return .medium
             case 13...15:
@@ -131,7 +131,7 @@ class PasswordGenerator: ObservableObject {
             case 0...6:
                 return .veryWeak
             case 7...9:
-                return .weak
+                return .toWeak
             case 10...13:
                 return .medium
             case 14...18:
@@ -146,7 +146,7 @@ class PasswordGenerator: ObservableObject {
             case 0...6:
                 return .veryWeak
             case 7...11:
-                return .weak
+                return .toWeak
             default:
                 return .medium
             }
@@ -160,7 +160,7 @@ class PasswordGenerator: ObservableObject {
         switch passwordQuality {
         case .veryWeak:
             return Color.red
-        case .weak:
+        case .toWeak:
             return Color.red.opacity(0.5)
         case .medium:
             return Color.orange.opacity(0.6)
