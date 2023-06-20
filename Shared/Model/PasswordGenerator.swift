@@ -24,8 +24,8 @@ class PasswordGenerator: ObservableObject {
     @Published var pin: String = ""
     @Published var lastPassword = ""
     @Published var lastPin = ""
-    @Published var sliderValueRandom = 8.0
-    @Published var sliderValuePin = 4.0
+    @Published var sliderValueRandom = 12.0
+    @Published var sliderValuePin = 6.0
     @Published var passwordQuality = PasswordQuality.strong
     @Published var pickerSelection: Int = 1
     @Published var showToggles: Bool = true
