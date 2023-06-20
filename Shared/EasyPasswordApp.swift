@@ -11,14 +11,20 @@ import SwiftUI
 struct EasyPasswordApp: App {
     
     @AppStorage("isDarkMode") private var isDarkMode: Bool =  false
+    @StateObject var passwordGenerator = PasswordGenerator()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .preferredColorScheme(isDarkMode ? .dark : .light) 
-//                .onDisappear(perform: {
-//                    NSApplication.shared.terminate(self)
-//                })
+                .environmentObject(passwordGenerator)
+                .preferredColorScheme(isDarkMode ? .dark : .light)
+                
+            #if os(macOS)
+                .onDisappear(perform: {
+                    NSApplication.shared.terminate(self)
+                })
+            #endif
+                
         }
         
     }

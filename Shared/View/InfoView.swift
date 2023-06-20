@@ -11,7 +11,7 @@ struct InfoView: View {
     
     // MARK: - // PROPERTIES
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @AppStorage("isDarkMode") private var isDarkMode: Bool =  false
 
     private let keyVersion = "CFBundleShortVersionString"
@@ -58,25 +58,22 @@ struct InfoView: View {
                     FormRowView(firstItem: "Website", secondItem: "www.berkantdursun.de")
                     FormRowView(firstItem: "Copyright", secondItem: "© 2020 All rights reserved.")
                     FormRowView(firstItem: "Version", secondItem: "\(getVersion())(\(getBuild()))")
-                } //: SECTION
-            } //: FORM
+                }
+            }
             .font(.system(.body, design: .rounded))
-        } //: VSTACH
-        .padding(.top, 40)
-        .overlay(
-            Button(action: {
-//                audioPlayer?.stop()
-                presentationMode.wrappedValue.dismiss()
-            
-        }) {
-            Image(systemName: "xmark.circle")
-                .font(.title)
         }
+        .padding(.top, 40)
+        .padding(20)
+        .toolbar {
+            Button {
+                dismiss()
+                
+            } label: {
+                Label("Close", systemImage: "xmark.circle")
+            }
             .padding(.top, 30)
             .padding(.trailing, 20)
-//            .accentColor(.secondary)
-            , alignment: .topTrailing
-        )
+        }
     }
 }
 
