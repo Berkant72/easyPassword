@@ -23,14 +23,14 @@ struct HeaderView: View {
         VStack {
             
             Image(systemName: "lock.rectangle")
-                .foregroundColor(.orange)
+                .foregroundColor(Color.accentColor)
                 .font(.system(size: 60))
                 .shadow(color: .orange.opacity(0.5), radius: 8, x: 4.0, y: 4.0)
                 .scaleEffect(CGSize(width: animateTitle ? 1.5 : 0.2, height: animateTitle ? 1.5 : 0.2))
                 .animation(Animation.easeIn, value: speed_t(0.4))
             
             Text("\(title)")
-                .foregroundColor(.orange)
+                .foregroundColor(Color.accentColor)
                 .font(.headline)
                 .shadow(color: .orange.opacity(0.5), radius: 8, x: 4.0, y: 4.0)
                 .offset(x: 0, y: animateTitle ? 40 : 0)

@@ -15,12 +15,12 @@ struct RandomOptionsView: View {
     var body: some View {
         VStack {
             Toggle("Numbers", isOn: $passwordGenerator.isNumber)
-                .toggleStyle(SwitchToggleStyle(tint: .orange))
+                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 .onChange(of: passwordGenerator.isNumber, perform: { ( _ ) in
                     passwordGenerator.generateNewValues()
                 })
             Toggle("Symbols", isOn: $passwordGenerator.isSymbol)
-                .toggleStyle(SwitchToggleStyle(tint: .orange))
+                .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 .onChange(of: passwordGenerator.isSymbol, perform: { ( _ ) in
                     passwordGenerator.generateNewValues()
                 })

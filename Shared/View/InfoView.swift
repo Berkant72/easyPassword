@@ -45,7 +45,7 @@ struct InfoView: View {
             Form {
                 Section(header: Text("Settings")) {
                     Toggle("Dark Mode", isOn: $isDarkMode)
-                        .toggleStyle(SwitchToggleStyle(tint: .orange))
+                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
             }.frame(height: 100)
             
